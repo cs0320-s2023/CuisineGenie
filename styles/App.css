@@ -1,0 +1,90 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  text-align: center;
+}
+.repl {
+  
+  height:100%
+}
+
+.repl-history {
+  margin: auto;
+  margin-bottom: 0;
+  
+  display: block;
+  overflow: auto;
+  height: 50vh;
+  width: 100%;
+
+  border: 2px solid #cacaca;
+  border-radius: 2%;
+  background-color:rgb(121, 119, 119);
+}
+
+
+
+.repl-command-box {
+  height: auto;
+  width:auto ;
+  font-size: 1rem;
+  font-display: auto;
+  margin: auto;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  
+  display: block;
+
+}
+
+table,
+th,
+td {
+  border: 1px solid;
+  
+  font-size: 100%;
+  height: fit-content;
+  width: min-content;
+  padding: 1em;
+
+  
+
+}
+
+h1{
+  font-size: 4vh;
+
+}
+
+
+
+.header-class{
+  
+}
+
+.Container{
+  height: 10%;
+}
+
+
+ .history-box {
+  height: 10%;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin:0;
+
+}
+.page-content {
+  height: 100%;
+}
+
+.history-output{
+  height:fit-content;
+  
+
+}
+
+.repl-input{
+  height: 10vh;
+}
