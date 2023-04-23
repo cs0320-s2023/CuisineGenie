@@ -1,3 +1,11 @@
+import { REPLFunction } from "./apiCaller/REPLFunction";
+import ReactDOM from "react-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
+import quiz from "./pages/quiz";
+import results from "./pages/results";
+import Layout from "./Layout"
+import ScrollToTop from "./ScrollToTop"
+
 import { useEffect, useState } from "react";
 import "../styles/App.css";
 import Header from "./components/Header";
@@ -11,7 +19,22 @@ import {
   mockSearchMap,
   csvFile,
 } from "../tests/componentsTest/mockedFunctionalityTest/mockedJson";
-import { REPLFunction } from "./apiCaller/REPLFunction";
+import Results from "./pages/results";
+import Profile from "./pages/profile";
+
+export default function App() {
+  return (
+    <HashRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/quiz" element={<Quiz />} />
+        </Route>
+      </Routes>
+    </HashRouter>
+  );
+}
 
 //from lecture code
 let registered = new Map<String, REPLFunction>();
@@ -50,7 +73,7 @@ window.onload = () => {
  * App component that holds the webpage
  * @returns JSX.Element to update the overall webpage using components
  */
-export default function App() {
+export function App2() {
   // The data state is an array of strings, which is passed to our components
   // You may want to make this a more complex object, but for now it's just a string
   const [history, setHistory] = useState<JSX.Element[]>([]);
