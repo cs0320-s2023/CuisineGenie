@@ -21,6 +21,7 @@ import {
 } from "../tests/componentsTest/mockedFunctionalityTest/mockedJson";
 import Results from "./pages/results";
 import Profile from "./pages/profile";
+import Quiz from "./pages/quiz";
 
 export default function App() {
   return (
@@ -28,8 +29,9 @@ export default function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+          <Route index element={<Quiz />} />
           <Route path="/quiz" element={<Quiz />} />
+          <Route path="/results" element={<Results />} />
         </Route>
       </Routes>
     </HashRouter>
