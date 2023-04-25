@@ -1,12 +1,29 @@
-.navbar{
-
-    background-color:white;
-  
+.navbar {
+  background-color: white;
 }
 
-.navbar-brand{
-    font-family: 'Inter', sans-serif;
-    font-weight: 700;
-    font-size: 4.5vh;
+nav {
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
+.navbar-brand {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 4.5vh;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+.nav-color {
+  background-color: #000;
+  height: 10px;
+}
+
+#no-margins {
+  margin: 0px;
+}
