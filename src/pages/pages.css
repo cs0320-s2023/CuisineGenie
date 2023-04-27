@@ -27,3 +27,15 @@ body {
 #no-margins {
   margin: 0px;
 }
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 25% 75%;
+}
