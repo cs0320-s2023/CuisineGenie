@@ -32,7 +32,7 @@ export default function ResultList(props: ResultListProps) {
       {props.list.map((text, index) => (
         <h5>
           {/* do we need measurements? */}
-          {index + 1}: {text}
+          {index + 1}. {text}
         </h5>
       ))}
     </div>
