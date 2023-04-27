@@ -10,32 +10,37 @@ export default function Results() {
       {/* <div className="nav-color"></div> */}
       <Navbar />
 
-      <div className="grid">
+      <div className="grid ">
         <ResultList list={["tomatoes", "2", "3", "4"]} />
 
         <div className="container">
           {/* need to find way to loop */}
           <ResultBox
+            image="https:\/\/www.themealdb.com\/images\/media\/meals\/ustsqw1468250014.jpg/preview"
+            name="Name"
+            cuisine="Cuisine"
+            ingredients={["Tomato", "Potato"]}
+          />
+          <ResultBox
+            image="https:\/\/www.themealdb.com\/images\/media\/meals\/ustsqw1468250014.jpg/preview"
             name="String"
             cuisine="Test"
             ingredients={["hi", "test"]}
           />
           <ResultBox
+            image="https:\/\/www.themealdb.com\/images\/media\/meals\/ustsqw1468250014.jpg/preview"
             name="String"
             cuisine="Test"
             ingredients={["hi", "test"]}
           />
           <ResultBox
+            image="https:\/\/www.themealdb.com\/images\/media\/meals\/ustsqw1468250014.jpg/preview"
             name="String"
             cuisine="Test"
             ingredients={["hi", "test"]}
           />
           <ResultBox
-            name="String"
-            cuisine="Test"
-            ingredients={["hi", "test"]}
-          />
-          <ResultBox
+            image="https:\/\/www.themealdb.com\/images\/media\/meals\/ustsqw1468250014.jpg/preview"
             name="String"
             cuisine="Test"
             ingredients={["hi", "test"]}

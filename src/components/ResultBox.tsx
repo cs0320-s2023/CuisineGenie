@@ -9,6 +9,7 @@ import "./components.css";
  * commands is a map that maps from the string to a REPLFunction (ex. "load" to load REPLFunction)
  */
 interface ResultBoxProps {
+  image: String;
   name: String;
   cuisine: String;
   ingredients: String[];
@@ -30,16 +31,20 @@ export default function ResultBox(props: ResultBoxProps) {
     >
       {/* TODO: Add a div for each command in the history */}
       {/* Hint: You can use the map function to iterate over an array */}
-      <h4>{props.name}</h4>
-      <h5>{props.cuisine}</h5>
-      <p>Ingredients:</p>
-
-      {props.ingredients.map((text, index) => (
-        <p>
-          {/* do we need measurements? */}
-          {text}
-        </p>
-      ))}
+      <div className="inner-box">
+        <img src={props.image} />
+        <div>
+          <h4>{props.name}</h4>
+          <h5>{props.cuisine}</h5>
+          <p>Ingredients:</p>
+          {props.ingredients.map((text, index) => (
+            <p>
+              {/* do we need measurements? */}
+              {index + 1}: {text}
+            </p>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

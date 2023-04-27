@@ -28,12 +28,12 @@ export default function ResultList(props: ResultListProps) {
     >
       {/* TODO: Add a div for each command in the history */}
       {/* Hint: You can use the map function to iterate over an array */}
-
+      <h4 className="margin-30px">Your Top Ingredients:</h4>
       {props.list.map((text, index) => (
-        <p>
+        <h5>
           {/* do we need measurements? */}
-          {index}: {text}
-        </p>
+          {index + 1}: {text}
+        </h5>
       ))}
     </div>
   );
