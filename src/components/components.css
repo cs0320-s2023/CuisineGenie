@@ -26,10 +26,10 @@ p {
   grid-template-columns: 175px 225px;
 }
 
-img {
+/* img {
   max-height: 150px;
 }
-
+ */
 .margin-30px {
   margin: 30px;
 }

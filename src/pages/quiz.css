@@ -1,0 +1,88 @@
+
+
+  .quiz-body{
+    /* display: grid;
+    grid-template-columns: 60% 40%; /* Create two columns */
+    /*column-gap: 0; 
+    row-gap: 0 !important; */
+    display: flex;
+    flex-direction: row;cdffx           v
+    width: 100vw;
+  }
+
+  .qheader-img-container1 {
+    min-width: 60vw;
+  }
+  .qheader-img-1{
+    max-height:500px; /*was max-height  */
+    /*min-width: 100%; */
+    width: 100%;
+  }
+
+  .qheader-img-container2 {
+    min-width: 40vw;
+  }
+
+  .qheader-img-2{
+    min-height: 500px;
+    width: 100%;
+    /*min-width: 100%;*/
+  }
+
+  @media screen and (max-width: 985px) {
+    .navbar-brand {
+        font-size: 3vw;
+    }
+ }
+
+ @media screen and (min-width: 985px) {
+    .navbar-brand {
+        font-size: 2.5vw;
+    }
+ }
+
+
+
+
+
+
+  
+
+
+
+
+  
+
+ 
+
+
+  
+
+  /* .hor-img{
+   width: 100%; /* scale the image width to 50% of its container */
+  /* }
+
+  .ver-img{
+    width: 80%;
+  }  */
+
+  /* .quiz-box {
+    background-color: lavender;
+    width: 40%;
+    max-height: 300px;
+    border-radius: 25px;
+    box-shadow: 3px 5px 5px darkgray;
+  }
+
+  .result-box {
+    background-color: lavender;
+    width: 40%;
+    max-height: 300px;
+    border-radius: 25px;
+    box-shadow: 3px 5px 5px darkgray;
+  }
+   */
+ 
+
+
+

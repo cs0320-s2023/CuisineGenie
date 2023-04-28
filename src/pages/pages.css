@@ -39,3 +39,9 @@ body {
   display: grid;
   grid-template-columns: 25% 75%;
 }
+
+.icon{
+  font-size: 45px;
+}
+
+
