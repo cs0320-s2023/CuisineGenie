@@ -40,8 +40,124 @@ body {
   grid-template-columns: 25% 75%;
 }
 
+.list-button-style {
+  appearance: button;
+  background-color: #8788ff;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  line-height: 12px;
+  margin: 15px;
+  margin-top: 20px;
+  outline: none;
+  overflow: visible;
+  padding: 12px 10px;
+  text-align: center;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: filter 0.2s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 200px;
+}
+
+.list-button-style:after {
+  background-clip: padding-box;
+  background-color: #a5a5ed;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  bottom: -4px;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.list-button-style:main,
+.list-button-style:focus {
+  user-select: auto;
+}
+
+.list-button-style:hover:not(:disabled) {
+  filter: brightness(1.1);
+  -webkit-filter: brightness(1.1);
+}
+
+.list-button-style:disabled {
+  cursor: auto;
+}
+
+.list-button-style {
+  appearance: button;
+  background-color: #8788ff;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.8px;
+  line-height: 12px;
+  margin: 15px;
+  margin-top: 20px;
+  outline: none;
+  overflow: visible;
+  padding: 12px 10px;
+  text-align: center;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: filter 0.2s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 200px;
+}
+
+.list-button-style:after {
+  background-clip: padding-box;
+  background-color: #a5a5ed;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  bottom: -4px;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.list-button-style:main,
+.list-button-style:focus {
+  user-select: auto;
+}
+
+.list-button-style:hover:not(:disabled) {
+  filter: brightness(1.1);
+  -webkit-filter: brightness(1.1);
+}
+
+.list-button-style:disabled {
+  cursor: auto;
+}
+
 .icon{
   font-size: 45px;
 }
-
-
