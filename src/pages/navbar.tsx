@@ -6,7 +6,7 @@ export default function Navbar() {
     <nav className=" navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">
-          <span className = "icon">🧞</span> CuisineGenie
+          <span className = "brand-icon">🧞</span> CuisineGenie
         </a>
         <button
           className="navbar-toggler"

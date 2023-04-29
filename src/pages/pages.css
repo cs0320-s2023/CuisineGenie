@@ -158,6 +158,37 @@ body {
   cursor: auto;
 }
 
-.icon{
-  font-size: 45px;
+
+
+@media screen and (max-width: 1400px) {
+  .brand-icon {
+      font-size: 5vh;
+  }
 }
+
+@media screen and (min-width: 1400px) {
+  .brand-icon{
+      font-size: 8.5vh;
+  }
+}
+
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.image-grid img {
+  display: block;
+  width: calc(20% - 20px);
+  height: auto;
+  object-fit: cover;
+}
+
+
+

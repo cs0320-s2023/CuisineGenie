@@ -1,17 +1,20 @@
 {
   "folders": [
-	{
-		"path": "../.."
-	},
-	{
-		"path": "../../../Portfolio-Final"
-	},
-	{
-		"path": "../../../../CS1300/lucynguyen.com"
-	},
-	{
-		"path": "../../../../cs20/src/search-lucynz25-lyndaumuhoza"
-	}
-],
+    {
+      "path": "../.."
+    },
+    {
+      "path": "../../../Portfolio-Final"
+    },
+    {
+      "path": "../../../../CS1300/lucynguyen.com"
+    },
+    {
+      "path": "../../../../cs20/src/search-lucynz25-lyndaumuhoza"
+    },
+    {
+      "path": "../../../../../Downloads/hw06-NancyZhu15"
+    }
+  ],
   "settings": {}
 }
