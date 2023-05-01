@@ -5,7 +5,9 @@
     flex-wrap: wrap-reverse;
     justify-content: center;
     align-items: center;
+    background-color: white;
   }
+  
 
    .qheader-img-container1 {
     position: relative;
@@ -101,7 +103,7 @@
   }
   .qheader-button{
     top:50%;
-    left: 20% !important;
+    left: 15% !important;
   }
  }
 
@@ -332,6 +334,7 @@
     grid-template-columns: repeat(5, 1fr); /* 5 columns */
     grid-template-rows: repeat(4, 1fr);
     row-gap: 1.5vw;
+    column-gap: 2vh;
   }
 }
 
@@ -340,14 +343,23 @@
   margin: 0 auto;
   padding: 16px 60px;
   background-color: #8E8CFF;
-  color: white;
+ 
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
+  cursor:pointer;
+  color:white;
 }
+
+.quiz-button-end:hover {
+  background-color: #6E6BFF; /* White background on hover */
+   /* Green text on hover */
+}
+
+
 
 
 

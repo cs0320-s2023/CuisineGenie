@@ -15,7 +15,8 @@ interface QuizBoxProps {
 //   name: string;
 }
 
-
+// get meal info that gets the data
+//display data that displays all of the info 
 /**
  * React Component for Input Box that handles what commands are typed into the input box
  * @param props defined above: history, setHistory, and commands

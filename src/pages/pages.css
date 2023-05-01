@@ -14,6 +14,10 @@ nav {
   font-size: 4.5vh;
 }
 
+.navbar-item {
+  font-weight:bold;
+}
+
 body {
   margin: 0px;
   padding: 0px;
