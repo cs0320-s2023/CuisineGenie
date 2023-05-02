@@ -7,11 +7,17 @@ public class Responses {
     public record RecipeID(@Json(name="idMeal") double idMeal){
     }
 
-    public record Ingredients(
-            @Json(name="strIngredient1") String ingredient1,
-            @Json(name="strIngredient2") String ingredient2,
-            @Json(name="strIngredient3") String ingredient3
-    ){}
+    public record Category(@Json(name="strCategory") String category){
+    }
+
+    public record Area(@Json(name="strArea") String area) {  
+    }
+
+    // public record Ingredients(
+    //         @Json(name="strIngredient1") String ingredient1,
+    //         @Json(name="strIngredient2") String ingredient2,
+    //         @Json(name="strIngredient3") String ingredient3
+    // ){}
 
 //    public record IngredientOne(@Json(name="strIngredient1") String ingredient1){
 //    }
