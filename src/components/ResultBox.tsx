@@ -10,10 +10,6 @@ import "./components.css";
  */
 interface ResultBoxProps {
   id: Number;
-  image: String;
-  name: String;
-  cuisine: String;
-  ingredients: String[];
 }
 
 //   // if item is unfavorited prior to button click, then add the item to favProducts list and store in variable updatedFavorites
@@ -57,31 +53,21 @@ export default function ResultBox(props: ResultBoxProps) {
     setDislike((prevState) => !prevState);
   };
 
-  // const getVideo = () => {
-  //   fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${props.id}`)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data["idMeal"] === props.id) {
-  //         return data["strYoutube"];
-  //       } else {
-  //         console.log("error");
-  //       }
-  //     });
-  // };
+  const [meal, setMeal] = useState([]);
 
-  async function getName(): Promise<string> {
-    return fetch(
-      `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${props.id}`
-    )
-      .then((res) => res.json())
+  const fetchMealData = () => {
+    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${props.id}`)
+      .then((response) => {
+        return response.json();
+      })
       .then((data) => {
-        if (data["idMeal"] === props.id) {
-          return data["strYoutube"];
-        } else {
-          console.log("error");
-        }
+        setMeal(data.meals);
       });
-  }
+  };
+
+  useEffect(() => {
+    fetchMealData();
+  }, []);
 
   return (
     <div
@@ -95,7 +81,10 @@ export default function ResultBox(props: ResultBoxProps) {
       {/* Hint: You can use the map function to iterate over an array */}
       <div className="inner-box">
         <div>
-          <img src={props.image} />
+          {meal.map((meals) => (
+            <img src={meals.strMealThumb + "/preview"} />
+          ))}
+
           <button className="button-style" role="button" onClick={handleLike}>
             {like ? "♥" : "♡"}
           </button>
@@ -108,19 +97,17 @@ export default function ResultBox(props: ResultBoxProps) {
           </button>
         </div>
         <div className="margin-10px">
-          <h4>
-            {/* {getName.then((result: String) => {
-                result;
-              })} */}
-            {props.name}
-          </h4>
-          <h5>{props.cuisine}</h5>
-          <p id="ingredients">Ingredients:</p>
-          {props.ingredients.map((text, index) => (
-            <p>
-              {/* do we need measurements? */}
-              {index + 1}. {text}
-            </p>
+          {meal.map((meals, index) => (
+            <div key={index}>
+              <h4>{meals.strMeal}</h4>
+              <h5>{meals.strArea}</h5>
+              <p id="ingredients">Ingredients:</p>
+              <p>1. {meals.strIngredient1}</p>
+              <p>2. {meals.strIngredient2}</p>
+              <p>3. {meals.strIngredient3}</p>
+              <p>4. {meals.strIngredient4}</p>
+              <p>5. {meals.strIngredient5}</p>
+            </div>
           ))}
         </div>
       </div>
