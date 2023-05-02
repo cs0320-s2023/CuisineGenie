@@ -3,9 +3,17 @@ import ResultBox from "../components/ResultBox";
 import ResultList from "../components/ResultList";
 import Navbar from "./navbar";
 import "./quiz.css";
+import { Link } from 'react-scroll';
 
 export default function Quiz() {
 
+  /**
+   * To Do-List
+   * - put everything in a container 
+   * - create two seperate functions where one is displayind data and gettting data
+   * - connect kayla section with mine 
+   * - data: name, id, ingredients, 
+   */
   
   return (
     <div>
@@ -18,7 +26,19 @@ export default function Quiz() {
               <div className = "qheader-text-container">
                 <h2 className = "qheader-text">Find out what foods you will enjoy!</h2>
               </div>
-                  <button className="qheader-button">Take the quiz!</button>
+                 
+                <button className = "qheader-button">
+                  <Link 
+                  activeClass="active"
+                  to= "qheader-buttonid"
+                  spy= {true}
+                  smooth = {true}
+                  offset = {-10}
+                  duration = {500}>
+                  Take the quiz!
+                  </Link>
+                  </button>
+
 
             </div>
 
@@ -38,9 +58,13 @@ export default function Quiz() {
 
       <div className = "question-main-container">
         <h1 className = "question-main mb-5">Choose five top meals! </h1> 
+      
+       
       </div>
 
+  
 
+    <section id = "qheader-buttonid">
     <div className = "responses-image-grid">
       <div className = "responses-image-container container-fluid">
 
@@ -66,7 +90,7 @@ export default function Quiz() {
         <QuizBox 
         image="https:\/\/www.themealdb.com\/images\/media\/meals\/wrpwuu1511786491.jpg"/>
 
-        <QuizBox 
+        <QuizBox
         image="https:\/\/www.themealdb.com\/images\/media\/meals\/wrpwuu1511786491.jpg"/>
 
         <QuizBox 
@@ -102,17 +126,21 @@ export default function Quiz() {
         <QuizBox 
         image="https:\/\/www.themealdb.com\/images\/media\/meals\/wrpwuu1511786491.jpg"/>
 
-      <QuizBox 
+        <QuizBox 
         image="https:\/\/www.themealdb.com\/images\/media\/meals\/wrpwuu1511786491.jpg"/>
 
 
         </div>
+        </div>
 
-        <div className = "quiz-button-end-container">
+    </section>
+   
+
+        <div className = "quiz-button-end-container"  id = "qheader-buttonid">
           <button className = "quiz-button-end mt-5 mb-5">Generate List</button>
         </div>
 
-      </div>
+
 
       
     </div>

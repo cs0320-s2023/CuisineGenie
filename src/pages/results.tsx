@@ -1,4 +1,3 @@
-import React from "react";
 import ResultBox from "../components/ResultBox";
 import ResultList from "../components/ResultList";
 import Navbar from "./navbar";
@@ -16,45 +15,9 @@ export default function Results() {
             Regenerate List
           </button>
           <div className="container">
-            {/* need to find way to loop */}
-            <ResultBox
-              id={52771}
-              image="https:\/\/www.themealdb.com\/images\/media\/meals\/ustsqw1468250014.jpg/preview"
-              name="Name"
-              cuisine="Cuisine"
-              ingredients={[
-                "Tomato",
-                "Potato",
-                "Celery",
-                "Noodles",
-                "Tomato",
-                "Potato",
-              ]}
-            />
-            <ResultBox
-              image="https:\/\/www.themealdb.com\/images\/media\/meals\/ustsqw1468250014.jpg/preview"
-              name="String"
-              cuisine="Test"
-              ingredients={["hi", "test"]}
-            />
-            <ResultBox
-              image="https:\/\/www.themealdb.com\/images\/media\/meals\/ustsqw1468250014.jpg/preview"
-              name="String"
-              cuisine="Test"
-              ingredients={["hi", "test"]}
-            />
-            <ResultBox
-              image="https:\/\/www.themealdb.com\/images\/media\/meals\/ustsqw1468250014.jpg/preview"
-              name="String"
-              cuisine="Test"
-              ingredients={["hi", "test"]}
-            />
-            <ResultBox
-              image="https:\/\/www.themealdb.com\/images\/media\/meals\/ustsqw1468250014.jpg/preview"
-              name="String"
-              cuisine="Test"
-              ingredients={["hi", "test"]}
-            />
+            <ResultBox id={52771} />
+            <ResultBox id={52929} />
+            <ResultBox id={52923} />
           </div>
         </div>
         <div className="bottom-padding"></div>
