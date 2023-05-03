@@ -16,20 +16,30 @@ import java.util.List;
 public class RecipeUtils {
 
     // gets top 3 ingredients of a recipe
-    public List<String> getIngredients(Responses.RecipeID recipeID) throws IOException {
+    public Responses.Category getCategory(Responses.RecipeID recipeID) throws IOException {
         String endpoint = this.getRecipeEndpointURL(recipeID);
 
-        Responses.Ingredients ingredients = this.callAPI(endpoint, Responses.Ingredients.class);
-        String ingredient1 = ingredients.ingredient1();
-        String ingredient2 = ingredients.ingredient2();
-        String ingredient3 = ingredients.ingredient3();
+        Responses.Category category = this.callAPI(endpoint, Responses.Category.class);
 
-        List<String> ingredientsList = new ArrayList<>();
-        ingredientsList.add(ingredient1);
-        ingredientsList.add(ingredient2);
-        ingredientsList.add(ingredient3);
+        // Responses.Ingredients ingredients = this.callAPI(endpoint, Responses.Ingredients.class);
+        // String ingredient1 = ingredients.ingredient1();
+        // String ingredient2 = ingredients.ingredient2();
+        // String ingredient3 = ingredients.ingredient3();
 
-        return ingredientsList;
+
+        // List<String> ingredientsList = new ArrayList<>();
+        // ingredientsList.add(ingredient1);
+        // ingredientsList.add(ingredient2);
+        // ingredientsList.add(ingredient3);
+
+        return category;
+    }
+
+    public Responses.Area getArea(Responses.RecipeID recipeID) throws IOException {
+        String endpoint = this.getRecipeEndpointURL(recipeID);
+        Responses.Area area = this.callAPI(endpoint, Responses.Area.class);
+
+        return area;
     }
 
     // Makes an API call to the given URL and converts the response to the specified class using moshi
