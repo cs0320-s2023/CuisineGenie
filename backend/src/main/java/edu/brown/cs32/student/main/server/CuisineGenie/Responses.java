@@ -9,7 +9,7 @@ public class Responses {
 //    }
 
     public record Meals(@Json(name="meals") List<MealProperties> mealProperties) {}
-    public record MealProperties(@Json(name="mealID") String mealID,
+    public record MealProperties(@Json(name="idMeal") String mealID,
                                  @Json(name="strCategory") String category,
                                  @Json(name="strArea") String area) {}
 

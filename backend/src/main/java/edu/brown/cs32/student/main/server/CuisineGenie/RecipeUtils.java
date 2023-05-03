@@ -64,9 +64,11 @@ public class RecipeUtils {
         return id;
     }
     // Makes an API call to the given URL and converts the response to the specified class using moshi
-    public <T> T callAPI(String url, Type classType) throws IOException {
-        URL endpoint = new URL(url);
-        HttpURLConnection clientConnection = (HttpURLConnection) endpoint.openConnection();
+    public <T> T callAPI(String url, String endpoint, Type classType) throws IOException {
+        String apiCall = this.getRecipeEndpointURL(endpoint);
+        String urlAPI = url + apiCall;
+        URL urlEndpoint = new URL(urlAPI);
+        HttpURLConnection clientConnection = (HttpURLConnection) urlEndpoint.openConnection();
 
         clientConnection.connect();
         int status = clientConnection.getResponseCode();
@@ -83,7 +85,7 @@ public class RecipeUtils {
     }
 
     public String getRecipeEndpointURL(String recipeID) {
-        return "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + recipeID;
+        return recipeID;
     }
 
     public String readerToString(Reader reader) throws IOException {

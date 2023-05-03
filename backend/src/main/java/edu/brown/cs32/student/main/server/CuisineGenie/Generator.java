@@ -99,28 +99,56 @@ public class Generator implements Route
         return mostCommon;
     }
 
-    public List<Meals> filterByCategory() throws IOException {
-        String url = "https://themealdb.com/api/json/v1/1/filter.php?c=" + this.mostCommonCategory();
-        List<Meals> filteredByCategory = this.recipeUtils.callAPI(url, Meals.class);
+    public List<MealProperties> filterByCategory() throws IOException {
+        //String url = "https://themealdb.com/api/json/v1/1/filter.php?c=" + this.mostCommonCategory();
+        List<MealProperties> filteredByCategory = new ArrayList<>();
+        System.out.println(this.mostCommonCategory());
+        Meals mealsFromCategory = this.recipeUtils.callAPI("https://themealdb.com/api/json/v1/1/filter.php?c=", this.mostCommonCategory(), Meals.class);
+
+        for(MealProperties meal : mealsFromCategory.mealProperties())
+
+            filteredByCategory.add(meal);
+
 
         return filteredByCategory;
     }
 
     public List<String> filterByArea() throws IOException {
+        System.out.println("in filter by area");
         List<String> generatedList = new ArrayList<>();
+        System.out.println("made generated list");
 
-        List<Meals> filteredByCategory = this.filterByCategory();
+        List<MealProperties> filteredByCategory = this.filterByCategory();
+        System.out.println("List of meals filtered by category: " + filteredByCategory);
 
-        for(Meals meal : filteredByCategory) {
-            String url = "https://themealdb.com/api/json/v1/1/lookup.php?i=" + this.recipeUtils.getID(meal);
-            List<String> singleMeal = this.recipeUtils.callAPI(url, MealProperties.class);
+        List<Meals> withCategoryAndArea = new ArrayList<>();
+        for(MealProperties meal : filteredByCategory) {
+            String id = meal.mealID();
+            System.out.println((id));
+            Meals singleMeal = this.recipeUtils.callAPI("https://themealdb.com/api/json/v1/1/lookup.php?i=", id, Meals.class);
+//            System.out.println("the single meal: " + singleMeal)
+            MealProperties mealProps = this.recipeUtils.callAPI("https://themealdb.com/api/json/v1/1/lookup.php?i=", id, MealProperties.class);
+            singleMeal.mealProperties().add(mealProps);
+
+            withCategoryAndArea.add(singleMeal);
+        }
+        System.out.println(withCategoryAndArea);
+
+        System.out.println(this.areasList);
+
+        for(Meals meal : withCategoryAndArea) {
+            System.out.println(meal.mealProperties().get(0).area());
 
             for(String area : this.areasList) {
-                if(area == this.recipeUtils.getArea(meal)) {
-                    generatedList.add(singleMeal.get(0)); // it will only have one item in it anyways
+                if(area.equals(meal.mealProperties().get(0).area())) {
+                    System.out.println("hi");
+                    generatedList.add(meal.mealProperties().get(0).mealID()); // it will only have one item in it anyways
                 }
             }
         }
+
+        System.out.println("this is the generated list of the mealIDs we will display: " + generatedList);
+
 
         return generatedList;
     }
@@ -138,16 +166,20 @@ public class Generator implements Route
             String string5 = request.queryParams("5");
             System.out.println("got query params");
             System.out.println(string1);
-            Meals id1 = this.recipeUtils.fromJson(Meals.class, string1);
+            Meals id1 = this.recipeUtils.callAPI("https://themealdb.com/api/json/v1/1/lookup.php?i=", string1, Meals.class);
             System.out.println(id1);
+            Meals id2 = this.recipeUtils.callAPI("https://themealdb.com/api/json/v1/1/lookup.php?i=", string2, Meals.class);
+            Meals id3 = this.recipeUtils.callAPI("https://themealdb.com/api/json/v1/1/lookup.php?i=", string3, Meals.class);
+            Meals id4 = this.recipeUtils.callAPI("https://themealdb.com/api/json/v1/1/lookup.php?i=", string4, Meals.class);
+            Meals id5 = this.recipeUtils.callAPI("https://themealdb.com/api/json/v1/1/lookup.php?i=", string5, Meals.class);
 
 
-            Meals id2 = this.recipeUtils.fromJson(Meals.class, string2);
-            Meals id3 = this.recipeUtils.fromJson(Meals.class, string3);
-            Meals id4 = this.recipeUtils.fromJson(Meals.class, string4);
-            Meals id5 = this.recipeUtils.fromJson(Meals.class, string5);
+//            Meals id2 = this.recipeUtils.fromJson(Meals.class, string2);
+//            Meals id3 = this.recipeUtils.fromJson(Meals.class, string3);
+//            Meals id4 = this.recipeUtils.fromJson(Meals.class, string4);
+//            Meals id5 = this.recipeUtils.fromJson(Meals.class, string5);
             System.out.println("converted string to id");
-            //this.mealIDs = new ArrayList<Meals>(List.of(id1, id2, id3, id4, id5));
+            this.mealIDs = new ArrayList<Meals>(List.of(id1, id2, id3, id4, id5));
             System.out.println(this.mealIDs);
 
 
@@ -159,6 +191,7 @@ public class Generator implements Route
             this.getAllAreas();
             System.out.println("got all areas");
             List<String> generatedList = this.filterByArea();
+
             System.out.println("this is the list " + generatedList);
             return serialize(viewSuccessResponse(generatedList));
 
