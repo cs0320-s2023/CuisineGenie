@@ -2,6 +2,7 @@ package edu.brown.cs32.student.main.server;
 
 import static spark.Spark.after;
 
+import edu.brown.cs32.student.main.server.CuisineGenie.Generator;
 import edu.brown.cs32.student.main.server.handlers.LoadHandler;
 import edu.brown.cs32.student.main.server.handlers.SearchHandler;
 import edu.brown.cs32.student.main.server.handlers.ViewHandler;
@@ -38,6 +39,7 @@ public class Server {
         Spark.get("viewcsv", new ViewHandler(csv));
         Spark.get("searchcsv", new SearchHandler(csv));
         Spark.get("weather", new WeatherHandler(0.5));
+        Spark.get("generaterecipes", new Generator());
 
         Spark.init();
         Spark.awaitInitialization();

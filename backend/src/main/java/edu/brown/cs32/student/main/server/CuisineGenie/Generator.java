@@ -18,7 +18,7 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 
-public class Recommender implements Route 
+public class Generator implements Route 
 {
 
     private List<Responses.RecipeID> mealIDs; // this will be given to us by the frontend
@@ -26,18 +26,16 @@ public class Recommender implements Route
     private List<String> categoriesList;
     private List<String> areasList;
 
-    public Recommender() {
+    public Generator() {
         this.recipeUtils = new RecipeUtils();
         this.categoriesList = new ArrayList<String>();
         this.areasList = new ArrayList<String>();
     }
 
-    public void getTopCategories() throws IOException {
-        // List<Responses.RecipeID> recommendedList = new ArrayList<>();
-        // List<String> categoriesList = new ArrayList<String>();
+    public void getAllCategories() throws IOException {
 
         try {
-            for(Responses.RecipeID meal : mealIDs) {
+            for(Responses.RecipeID meal : this.mealIDs) {
                 String category = this.recipeUtils.getCategory(meal);
     
                 if(this.categoriesList.contains(category) == false) {
@@ -62,7 +60,7 @@ public class Recommender implements Route
 
     }
 
-    public void getTopAreas() throws IOException {
+    public void getAllAreas() throws IOException {
         try{
             for(Responses.RecipeID meal : mealIDs) {
                 String area = this.recipeUtils.getArea(meal);
@@ -105,7 +103,7 @@ public class Recommender implements Route
     }
 
     public List<Responses.RecipeID> filterByArea() throws IOException {
-        List<Responses.RecipeID> recommendedList = new ArrayList<>();
+        List<Responses.RecipeID> generatedList = new ArrayList<>();
 
         List<Responses.RecipeID> filteredByCategory = this.filterByCategory();
 
@@ -115,35 +113,41 @@ public class Recommender implements Route
 
             for(String area : this.areasList) {
                 if(area == this.recipeUtils.getArea(meal)) {
-                    recommendedList.add(singleMeal.get(0)); // it will only have one item in it anyways
+                    generatedList.add(singleMeal.get(0)); // it will only have one item in it anyways
                 }
             }
         }
 
-        return recommendedList;
+        return generatedList;
     }
-
-    // public List<Responses.RecipeID> handleRecommendation() {
-    //     this.getTopCategories();
-    //     this.getTopAreas();
-    //     this.filterByArea();
-    // }
-
-    // public void dislike() {
-
-    // }
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
+
         if(request.queryParams().size() != 0) {
             return serialize(viewFailureResponse("error_bad_request", "no endpoint was found"));
         }
+        String string1 = request.queryParams("1");
+        String string2 = request.queryParams("2");
+        String string3 = request.queryParams("3");
+        String string4 = request.queryParams("4");
+        String string5 = request.queryParams("5");
+        Responses.RecipeID id1 = this.recipeUtils.fromJson(Responses.RecipeID.class, string1);
+        Responses.RecipeID id2 = this.recipeUtils.fromJson(Responses.RecipeID.class, string2);
+        Responses.RecipeID id3 = this.recipeUtils.fromJson(Responses.RecipeID.class, string3);
+        Responses.RecipeID id4 = this.recipeUtils.fromJson(Responses.RecipeID.class, string4);
+        Responses.RecipeID id5 = this.recipeUtils.fromJson(Responses.RecipeID.class, string5);
+        this.mealIDs = new ArrayList<Responses.RecipeID>(List.of(id1, id2, id3, id4, id5));
+       
 
-        this.getTopCategories();
-        this.getTopAreas();
-        List<Responses.RecipeID> recommendedList = this.filterByArea();
+
+        //todo: add a catch where it handles an invalid ID
+
+        this.getAllCategories();
+        this.getAllAreas();
+        List<Responses.RecipeID> generatedList = this.filterByArea();
         
-        return serialize(viewSuccessResponse(recommendedList));
+        return serialize(viewSuccessResponse(generatedList));
     }
 
     private Map<String, Object> viewSuccessResponse(List<Responses.RecipeID> ids) {
