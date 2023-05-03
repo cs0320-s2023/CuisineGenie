@@ -1,9 +1,12 @@
+import { useState } from "react";
 import ResultBox from "../components/ResultBox";
 import ResultList from "../components/ResultList";
 import Navbar from "./navbar";
 import "./pages.css";
 
 export default function Results() {
+  const [resultList, setResultList] = useState([52771, 52929, 52923]);
+
   return (
     <div style={{ margin: "0", padding: "0" }}>
       {/* <div className="nav-color"></div> */}
@@ -15,9 +18,9 @@ export default function Results() {
             Regenerate List
           </button>
           <div className="container">
-            <ResultBox id={52771} />
-            <ResultBox id={52929} />
-            <ResultBox id={52923} />
+            {resultList.map((ID) => (
+              <ResultBox id={ID} />
+            ))}
           </div>
         </div>
         <div className="bottom-padding"></div>
