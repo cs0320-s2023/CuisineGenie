@@ -5,12 +5,14 @@ import Navbar from "./navbar";
 import "./pages.css";
 
 export default function Results() {
-  const [resultBoxes, setResultBoxes] = useState([52771, 52929, 52923]);
+  const [resultBoxes, setResultBoxes] = useState([
+    52820, 52929, 52923, 52850, 53011,
+  ]);
   const [ingredientsList, setIngredientsList] = useState([
-    "tomatoes",
-    "potatoes",
-    "salt",
-    "sugar",
+    "Tomatoes",
+    "Potatoes",
+    "Salt",
+    "Sugar",
   ]);
 
   return (
@@ -18,8 +20,12 @@ export default function Results() {
       {/* <div className="nav-color"></div> */}
       <Navbar />
       <div className="grid ">
-        <ResultList list={["tomatoes", "2", "3", "4"]} />
+        <ResultList list={ingredientsList} />
         <div>
+          <h5>Want to explore other options?</h5>
+          <p>
+            Select what you like or dislike and then click the button below!
+          </p>
           <button className="list-button-style" role="button">
             Regenerate List
           </button>

@@ -69,20 +69,25 @@ export default function ResultBox(props: ResultBoxProps) {
     fetchMealData();
   }, []);
 
+  const handleClick = () => {
+    meal.map((meals) => window.location.replace(meals.strYoutube));
+  };
+
   return (
-    <div
+    <button
       tabIndex={0}
       className="result-box"
       aria-label="contains result"
       data-testid="result"
       role="result-box"
+      onClick={handleClick}
     >
       {/* TODO: Add a div for each command in the history */}
       {/* Hint: You can use the map function to iterate over an array */}
       <div className="inner-box">
         <div>
           {meal.map((meals) => (
-            <img src={meals.strMealThumb + "/preview"} />
+            <img className="image" src={meals.strMealThumb + "/preview"} />
           ))}
 
           <button className="button-style" role="button" onClick={handleLike}>
@@ -111,6 +116,6 @@ export default function ResultBox(props: ResultBoxProps) {
           ))}
         </div>
       </div>
-    </div>
+    </button>
   );
 }
