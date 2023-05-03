@@ -16,6 +16,10 @@
   font-family: "Montserrat", sans-serif;
 }
 
+.image {
+  max-height: 150px;
+}
+
 #ingredients {
   font-weight: 500;
   font-size: 14px;
@@ -50,8 +54,8 @@ h5 {
   margin: 30px;
 }
 
-.margin-10px {
-  margin: 10px;
+.margin-5px {
+  margin: 5px;
 }
 
 /* CSS */
