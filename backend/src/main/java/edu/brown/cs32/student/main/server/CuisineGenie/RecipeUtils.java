@@ -3,6 +3,8 @@ package edu.brown.cs32.student.main.server.CuisineGenie;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 
+import edu.brown.cs32.student.main.server.CuisineGenie.Responses.MealProperties;
+import edu.brown.cs32.student.main.server.CuisineGenie.Responses.Meals;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,10 +18,10 @@ import java.util.List;
 public class RecipeUtils {
 
     // gets top 3 ingredients of a recipe
-    public Responses.Category getCategory(Responses.RecipeID recipeID) throws IOException {
-        String endpoint = this.getRecipeEndpointURL(recipeID);
-
-        Responses.Category category = this.callAPI(endpoint, Responses.Category.class);
+    public String getCategory(Meals meals) throws IOException {
+        //this.getRecipeEndpointURL(meals.mealProperties().get(0).mealID());
+        String category = meals.mealProperties().get(0).category();
+        return category;
 
         // Responses.Ingredients ingredients = this.callAPI(endpoint, Responses.Ingredients.class);
         // String ingredient1 = ingredients.ingredient1();
@@ -32,16 +34,35 @@ public class RecipeUtils {
         // ingredientsList.add(ingredient2);
         // ingredientsList.add(ingredient3);
 
-        return category;
+
     }
 
-    public Responses.Area getArea(Responses.RecipeID recipeID) throws IOException {
-        String endpoint = this.getRecipeEndpointURL(recipeID);
-        Responses.Area area = this.callAPI(endpoint, Responses.Area.class);
+    public String getArea(Meals meals) throws IOException {
+       // String endpoint = this.getRecipeEndpointURL(meals.mealProperties().get(0).mealID());
 
+        String area = meals.mealProperties().get(0).area();
         return area;
+
+        // Responses.Ingredients ingredients = this.callAPI(endpoint, Responses.Ingredients.class);
+        // String ingredient1 = ingredients.ingredient1();
+        // String ingredient2 = ingredients.ingredient2();
+        // String ingredient3 = ingredients.ingredient3();
+
+
+        // List<String> ingredientsList = new ArrayList<>();
+        // ingredientsList.add(ingredient1);
+        // ingredientsList.add(ingredient2);
+        // ingredientsList.add(ingredient3);
+
+
     }
 
+    public String getID(Meals meals) throws IOException {
+        // String endpoint = this.getRecipeEndpointURL(meals.mealProperties().get(0).mealID());
+
+        String id = meals.mealProperties().get(0).mealID();
+        return id;
+    }
     // Makes an API call to the given URL and converts the response to the specified class using moshi
     public <T> T callAPI(String url, Type classType) throws IOException {
         URL endpoint = new URL(url);
@@ -61,9 +82,8 @@ public class RecipeUtils {
         return this.fromJson(classType, jsonAsString);
     }
 
-    public String getRecipeEndpointURL(Responses.RecipeID recipeID) {
-        String idMeal = recipeID.idMeal();
-        return "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + idMeal;
+    public String getRecipeEndpointURL(String recipeID) {
+        return "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + recipeID;
     }
 
     public String readerToString(Reader reader) throws IOException {

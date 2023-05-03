@@ -1,7 +1,9 @@
 package edu.brown.cs32.student.main.server.CuisineGenie;
-
-import edu.brown.cs32.student.main.server.CuisineGenie.Responses.Area;
-import edu.brown.cs32.student.main.server.CuisineGenie.Responses.RecipeID;
+//
+//import edu.brown.cs32.student.main.server.CuisineGenie.Responses.Area;
+//import edu.brown.cs32.student.main.server.CuisineGenie.Responses.RecipeID;
+import edu.brown.cs32.student.main.server.CuisineGenie.Responses.MealProperties;
+import edu.brown.cs32.student.main.server.CuisineGenie.Responses.Meals;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,23 +26,23 @@ import com.squareup.moshi.Types;
 public class Generator implements Route 
 {
 
-    private List<Responses.RecipeID> mealIDs; // this will be given to us by the frontend
+    private List<Meals> mealIDs; // this will be given to us by the frontend
     private RecipeUtils recipeUtils;
-    private List<Responses.Category> categoriesList;
-    private List<Responses.Area> areasList;
+    private List<String> categoriesList;
+    private List<String> areasList;
 
     public Generator() {
         this.recipeUtils = new RecipeUtils();
-        this.categoriesList = new ArrayList<Responses.Category>();
-        this.areasList = new ArrayList<Responses.Area>();
+        this.categoriesList = new ArrayList<String>();
+        this.areasList = new ArrayList<String>();
     }
 
     public void getAllCategories() throws IOException {
 
 
         try {
-            for(Responses.RecipeID meal : this.mealIDs) {
-                Responses.Category category = this.recipeUtils.getCategory(meal);
+            for(Meals meal : this.mealIDs) {
+                String category = this.recipeUtils.getCategory(meal);
     
                 if(this.categoriesList.contains(category) == false) {
                     this.categoriesList.add(category);
@@ -66,8 +68,8 @@ public class Generator implements Route
 
     public void getAllAreas() throws IOException {
         try{
-            for(Responses.RecipeID meal : mealIDs) {
-                Responses.Area area = this.recipeUtils.getArea(meal);
+            for(Meals meal : mealIDs) {
+                String area = this.recipeUtils.getArea(meal);
 
                 if(this.areasList.contains(area) == false) {
                     this.areasList.add(area);
@@ -79,12 +81,12 @@ public class Generator implements Route
         }
     }
 
-    public Responses.Category mostCommonCategory() {
+    public String mostCommonCategory() {
 
         // nothing in common
         Random r = new Random();
         int randomItem = r.nextInt(categoriesList.size());
-        Responses.Category  mostCommon = categoriesList.get(randomItem);
+        String  mostCommon = categoriesList.get(randomItem);
 
         for(int i = 0; i < this.categoriesList.size(); i++) {
             for(int j = 1; j < this.categoriesList.size() - 1; j++) {
@@ -97,23 +99,23 @@ public class Generator implements Route
         return mostCommon;
     }
 
-    public List<Responses.RecipeID> filterByCategory() throws IOException {
+    public List<Meals> filterByCategory() throws IOException {
         String url = "https://themealdb.com/api/json/v1/1/filter.php?c=" + this.mostCommonCategory();
-        List<Responses.RecipeID> filteredByCategory = this.recipeUtils.callAPI(url, Responses.RecipeID.class);
+        List<Meals> filteredByCategory = this.recipeUtils.callAPI(url, Meals.class);
 
         return filteredByCategory;
     }
 
-    public List<RecipeID> filterByArea() throws IOException {
-        List<RecipeID> generatedList = new ArrayList<>();
+    public List<String> filterByArea() throws IOException {
+        List<String> generatedList = new ArrayList<>();
 
-        List<RecipeID> filteredByCategory = this.filterByCategory();
+        List<Meals> filteredByCategory = this.filterByCategory();
 
-        for(RecipeID meal : filteredByCategory) {
-            String url = "https://themealdb.com/api/json/v1/1/lookup.php?i=" + meal.toString();
-            List<RecipeID> singleMeal = this.recipeUtils.callAPI(url, RecipeID.class);
+        for(Meals meal : filteredByCategory) {
+            String url = "https://themealdb.com/api/json/v1/1/lookup.php?i=" + this.recipeUtils.getID(meal);
+            List<String> singleMeal = this.recipeUtils.callAPI(url, MealProperties.class);
 
-            for(Area area : this.areasList) {
+            for(String area : this.areasList) {
                 if(area == this.recipeUtils.getArea(meal)) {
                     generatedList.add(singleMeal.get(0)); // it will only have one item in it anyways
                 }
@@ -136,14 +138,16 @@ public class Generator implements Route
             String string5 = request.queryParams("5");
             System.out.println("got query params");
             System.out.println(string1);
-            RecipeID id1 = this.recipeUtils.fromJson(RecipeID.class, string1);
+            Meals id1 = this.recipeUtils.fromJson(Meals.class, string1);
             System.out.println(id1);
-            RecipeID id2 = this.recipeUtils.fromJson(RecipeID.class, string2);
-            RecipeID id3 = this.recipeUtils.fromJson(RecipeID.class, string3);
-            RecipeID id4 = this.recipeUtils.fromJson(RecipeID.class, string4);
-            RecipeID id5 = this.recipeUtils.fromJson(RecipeID.class, string5);
+
+
+            Meals id2 = this.recipeUtils.fromJson(Meals.class, string2);
+            Meals id3 = this.recipeUtils.fromJson(Meals.class, string3);
+            Meals id4 = this.recipeUtils.fromJson(Meals.class, string4);
+            Meals id5 = this.recipeUtils.fromJson(Meals.class, string5);
             System.out.println("converted string to id");
-            this.mealIDs = new ArrayList<RecipeID>(List.of(id1, id2, id3, id4, id5));
+            //this.mealIDs = new ArrayList<Meals>(List.of(id1, id2, id3, id4, id5));
             System.out.println(this.mealIDs);
 
 
@@ -154,7 +158,7 @@ public class Generator implements Route
             System.out.println("got all categories");
             this.getAllAreas();
             System.out.println("got all areas");
-            List<RecipeID> generatedList = this.filterByArea();
+            List<String> generatedList = this.filterByArea();
             System.out.println("this is the list " + generatedList);
             return serialize(viewSuccessResponse(generatedList));
 
@@ -167,7 +171,7 @@ public class Generator implements Route
 
     }
 
-    private Map<String, Object> viewSuccessResponse(List<RecipeID> ids) {
+    private Map<String, Object> viewSuccessResponse(List<String> ids) {
         Map<String, Object> responses = new HashMap<>();
         responses.put("result", "success");
         responses.put("ids", ids); // for frontend to fetch
