@@ -23,20 +23,20 @@ public class Generator implements Route
 
     private List<Responses.RecipeID> mealIDs; // this will be given to us by the frontend
     private RecipeUtils recipeUtils;
-    private List<String> categoriesList;
-    private List<String> areasList;
+    private List<Responses.Category> categoriesList;
+    private List<Responses.Area> areasList;
 
     public Generator() {
         this.recipeUtils = new RecipeUtils();
-        this.categoriesList = new ArrayList<String>();
-        this.areasList = new ArrayList<String>();
+        this.categoriesList = new ArrayList<Responses.Category>();
+        this.areasList = new ArrayList<Responses.Area>();
     }
 
     public void getAllCategories() throws IOException {
 
         try {
             for(Responses.RecipeID meal : this.mealIDs) {
-                String category = this.recipeUtils.getCategory(meal);
+                Responses.Category category = this.recipeUtils.getCategory(meal);
     
                 if(this.categoriesList.contains(category) == false) {
                     this.categoriesList.add(category);
@@ -63,7 +63,7 @@ public class Generator implements Route
     public void getAllAreas() throws IOException {
         try{
             for(Responses.RecipeID meal : mealIDs) {
-                String area = this.recipeUtils.getArea(meal);
+                Responses.Area area = this.recipeUtils.getArea(meal);
 
                 if(this.areasList.contains(area) == false) {
                     this.areasList.add(area);
@@ -75,21 +75,19 @@ public class Generator implements Route
         }
     }
 
-    public String mostCommonCategory() {
-        String mostCommon = "";
+    public Responses.Category mostCommonCategory() {
+
+        // nothing in common
+        Random r = new Random();
+        int randomItem = r.nextInt(categoriesList.size());
+        Responses.Category  mostCommon = categoriesList.get(randomItem);
+
         for(int i = 0; i < this.categoriesList.size(); i++) {
             for(int j = 1; j < this.categoriesList.size() - 1; j++) {
                 if(this.categoriesList.get(i) == this.categoriesList.get(j)) {
                     mostCommon = this.categoriesList.get(i);
                 }
             }
-        }
-
-        // nothing in common
-        if(mostCommon == "") {
-            Random r = new Random();
-            int randomItem = r.nextInt(categoriesList.size());
-            mostCommon = categoriesList.get(randomItem);
         }
         
         return mostCommon;
@@ -111,7 +109,7 @@ public class Generator implements Route
             String url = "https://themealdb.com/api/json/v1/1/lookup.php?i=" + meal;
             List<Responses.RecipeID> singleMeal = this.recipeUtils.callAPI(url, Responses.RecipeID.class);
 
-            for(String area : this.areasList) {
+            for(Responses.Area area : this.areasList) {
                 if(area == this.recipeUtils.getArea(meal)) {
                     generatedList.add(singleMeal.get(0)); // it will only have one item in it anyways
                 }
