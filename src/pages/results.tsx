@@ -5,7 +5,13 @@ import Navbar from "./navbar";
 import "./pages.css";
 
 export default function Results() {
-  const [resultList, setResultList] = useState([52771, 52929, 52923]);
+  const [resultBoxes, setResultBoxes] = useState([52771, 52929, 52923]);
+  const [ingredientsList, setIngredientsList] = useState([
+    "tomatoes",
+    "potatoes",
+    "salt",
+    "sugar",
+  ]);
 
   return (
     <div style={{ margin: "0", padding: "0" }}>
@@ -18,7 +24,7 @@ export default function Results() {
             Regenerate List
           </button>
           <div className="container">
-            {resultList.map((ID) => (
+            {resultBoxes.map((ID) => (
               <ResultBox id={ID} />
             ))}
           </div>
