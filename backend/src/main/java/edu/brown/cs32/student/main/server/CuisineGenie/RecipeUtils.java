@@ -62,7 +62,7 @@ public class RecipeUtils {
     }
 
     public String getRecipeEndpointURL(Responses.RecipeID recipeID) {
-        double idMeal = recipeID.idMeal();
+        String idMeal = recipeID.idMeal();
         return "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + idMeal;
     }
 

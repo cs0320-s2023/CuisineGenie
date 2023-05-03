@@ -4,8 +4,11 @@ import com.squareup.moshi.Json;
 
 public class Responses {
 
-    public record RecipeID(@Json(name="idMeal") double idMeal){
-    }
+//    public record RecipeID(@Json(name="idMeal") String idMeal){
+//    }
+public record RecipeID(String idMeal){
+}
+
 
     public record Category(@Json(name="strCategory") String category){
     }

@@ -1,5 +1,7 @@
 package edu.brown.cs32.student.main.server.CuisineGenie;
 
+import edu.brown.cs32.student.main.server.CuisineGenie.Responses.Area;
+import edu.brown.cs32.student.main.server.CuisineGenie.Responses.RecipeID;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +11,7 @@ import java.net.URL;
 import java.util.Map;
 import java.lang.reflect.Type;
 import java.util.HashMap;
+
 
 import spark.Request;
 import spark.Response;
@@ -33,6 +36,7 @@ public class Generator implements Route
     }
 
     public void getAllCategories() throws IOException {
+
 
         try {
             for(Responses.RecipeID meal : this.mealIDs) {
@@ -100,16 +104,16 @@ public class Generator implements Route
         return filteredByCategory;
     }
 
-    public List<Responses.RecipeID> filterByArea() throws IOException {
-        List<Responses.RecipeID> generatedList = new ArrayList<>();
+    public List<RecipeID> filterByArea() throws IOException {
+        List<RecipeID> generatedList = new ArrayList<>();
 
-        List<Responses.RecipeID> filteredByCategory = this.filterByCategory();
+        List<RecipeID> filteredByCategory = this.filterByCategory();
 
-        for(Responses.RecipeID meal : filteredByCategory) {
-            String url = "https://themealdb.com/api/json/v1/1/lookup.php?i=" + meal;
-            List<Responses.RecipeID> singleMeal = this.recipeUtils.callAPI(url, Responses.RecipeID.class);
+        for(RecipeID meal : filteredByCategory) {
+            String url = "https://themealdb.com/api/json/v1/1/lookup.php?i=" + meal.toString();
+            List<RecipeID> singleMeal = this.recipeUtils.callAPI(url, RecipeID.class);
 
-            for(Responses.Area area : this.areasList) {
+            for(Area area : this.areasList) {
                 if(area == this.recipeUtils.getArea(meal)) {
                     generatedList.add(singleMeal.get(0)); // it will only have one item in it anyways
                 }
@@ -121,34 +125,49 @@ public class Generator implements Route
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
+        try{
+            if(request.queryParams().size() == 0) {
+                return serialize(viewFailureResponse("error_bad_request", "no endpoint was found"));
+            }
+            String string1 = request.queryParams("1");
+            String string2 = request.queryParams("2");
+            String string3 = request.queryParams("3");
+            String string4 = request.queryParams("4");
+            String string5 = request.queryParams("5");
+            System.out.println("got query params");
+            System.out.println(string1);
+            RecipeID id1 = this.recipeUtils.fromJson(RecipeID.class, string1);
+            System.out.println(id1);
+            RecipeID id2 = this.recipeUtils.fromJson(RecipeID.class, string2);
+            RecipeID id3 = this.recipeUtils.fromJson(RecipeID.class, string3);
+            RecipeID id4 = this.recipeUtils.fromJson(RecipeID.class, string4);
+            RecipeID id5 = this.recipeUtils.fromJson(RecipeID.class, string5);
+            System.out.println("converted string to id");
+            this.mealIDs = new ArrayList<RecipeID>(List.of(id1, id2, id3, id4, id5));
+            System.out.println(this.mealIDs);
 
-        if(request.queryParams().size() != 0) {
-            return serialize(viewFailureResponse("error_bad_request", "no endpoint was found"));
+
+
+            //todo: add a catch where it handles an invalid ID
+
+            this.getAllCategories();
+            System.out.println("got all categories");
+            this.getAllAreas();
+            System.out.println("got all areas");
+            List<RecipeID> generatedList = this.filterByArea();
+            System.out.println("this is the list " + generatedList);
+            return serialize(viewSuccessResponse(generatedList));
+
+        }catch(Exception e){
+            return serialize(viewFailureResponse("error_bad_request", e.getMessage()));
         }
-        String string1 = request.queryParams("1");
-        String string2 = request.queryParams("2");
-        String string3 = request.queryParams("3");
-        String string4 = request.queryParams("4");
-        String string5 = request.queryParams("5");
-        Responses.RecipeID id1 = this.recipeUtils.fromJson(Responses.RecipeID.class, string1);
-        Responses.RecipeID id2 = this.recipeUtils.fromJson(Responses.RecipeID.class, string2);
-        Responses.RecipeID id3 = this.recipeUtils.fromJson(Responses.RecipeID.class, string3);
-        Responses.RecipeID id4 = this.recipeUtils.fromJson(Responses.RecipeID.class, string4);
-        Responses.RecipeID id5 = this.recipeUtils.fromJson(Responses.RecipeID.class, string5);
-        this.mealIDs = new ArrayList<Responses.RecipeID>(List.of(id1, id2, id3, id4, id5));
-       
 
 
-        //todo: add a catch where it handles an invalid ID
-
-        this.getAllCategories();
-        this.getAllAreas();
-        List<Responses.RecipeID> generatedList = this.filterByArea();
         
-        return serialize(viewSuccessResponse(generatedList));
+
     }
 
-    private Map<String, Object> viewSuccessResponse(List<Responses.RecipeID> ids) {
+    private Map<String, Object> viewSuccessResponse(List<RecipeID> ids) {
         Map<String, Object> responses = new HashMap<>();
         responses.put("result", "success");
         responses.put("ids", ids); // for frontend to fetch
