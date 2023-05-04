@@ -9,7 +9,7 @@ import "./components.css";
  * commands is a map that maps from the string to a REPLFunction (ex. "load" to load REPLFunction)
  */
 interface ResultBoxProps {
-  id: Number;
+  id: String;
 }
 
 //   // if item is unfavorited prior to button click, then add the item to favProducts list and store in variable updatedFavorites
