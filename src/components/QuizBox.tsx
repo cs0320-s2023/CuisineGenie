@@ -10,10 +10,62 @@ import "/src/pages/quiz.css"
  * commands is a map that maps from the string to a REPLFunction (ex. "load" to load REPLFunction)
  */
 interface QuizBoxProps {
-//   id: Number;
+ 
   image: string
+  name: string
 //   name: string;
 }
+
+
+
+
+
+
+
+// export function getMealIds(props: eachMeal){
+//    const [selectedMeals, setSelectedMeals] = useState([]);
+//    const [meals, setMeals] = useState<eachMeal[]>([]);
+
+//    const handleMealClick = (id: string) => {
+//     // Make a copy of the selectedMeals array and add the new meal id to it
+//     const newSelectedMeals = [...selectedMeals, id];
+//     setSelectedMeals(newSelectedMeals);
+//   };
+
+
+// }
+
+
+
+
+
+
+
+// function getMealIDS(){
+//   const [mealIds, setMealIds] = useState([]);
+//   useEffect(() => {
+//     async function fetchMealIds() {
+//       const ids = [];
+//       for (let i = 1; i <= 20; i++) {
+//         const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${i}`);
+//         const data = await response.json();
+//         ids.push(data.meals[0].idMeal);
+//       }
+//       setMealIds(ids);
+//     }
+//     fetchMealIds();
+//   }, []);
+//   return (
+//     <div>
+//       <h2>Meal IDs:</h2>
+//       <ul>
+//         {mealIds.map((id) => (
+//           <li key={id}>{id}</li>
+//         ))}
+//       </ul>
+//     </div>
+//   )
+// }
 
 // get meal info that gets the data
 //display data that displays all of the info 
@@ -22,7 +74,15 @@ interface QuizBoxProps {
  * @param props defined above: history, setHistory, and commands
  * @returns a JSX.Element that prints the correct output for the command on the screen
  */
-export default function QuizBox(props: QuizBoxProps) {
+
+export interface eachMeal {
+  idMeal: string;
+  strMeal: string;
+  strMealThumb: string;
+  onClick: () => void;
+  selected: boolean;
+}
+export function QuizBox(props: QuizBoxProps) {
     return (
         <div
         tabIndex={0}
@@ -34,14 +94,64 @@ export default function QuizBox(props: QuizBoxProps) {
 
         <div className = "responses-image-grid">
             <div className = "quiz-box-image-container"> 
-            <img className = "quiz-box-image" src = {props.image}></img>
+            <img className = "quiz-box-image mb-2" src = {props.image}></img>
             </div>  
+        </div> 
+
+        <div className = "responses-images-name-container">
+          <div className = "responses-images-name">
+            <h6> {props.name}</h6>
+          </div>
+
         </div>
 
       </div>
 
     )
-    // return(
+}
+
+
+
+export default function QuizBoxOne(props: eachMeal) {
+  return (
+    
+      <div
+      tabIndex={0}
+      className={`quiz-box ${props.selected ? 'selected' : ''}`}
+      aria-label="contains quiz"
+      data-testid="quiz"
+      role="quiz-box"
+      style={{ border: props.selected ? '3px solid blue' : '3px solid black' }}
+      onClick={props.onClick} 
+    
+      
+    >
+
+      <div className = "responses-image-grid">
+          <div className = "quiz-box-image-container"> 
+          <img className = "quiz-box-image mb-2" src = {props.strMealThumb} alt = {props.strMeal}></img>
+          </div>  
+      </div> 
+
+      <div className = "responses-images-name-container">
+        <div className = "responses-images-name">
+          <h6> {props.strMeal}</h6>
+        </div>
+
+      </div>
+
+    </div>
+
+
+  )
+}
+
+
+    
+
+    
+
+    // return( margin was added to include props.name 
     //     <div
     //     tabIndex={0}
     //     className="quiz-box"
@@ -62,4 +172,4 @@ export default function QuizBox(props: QuizBoxProps) {
     //     </div>
     //   </div>
     // )
-}
+
