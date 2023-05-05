@@ -369,41 +369,13 @@ interface Meal {
   const handleGenerateListClick = (): React.ReactNode => {
     const mealIDS = selectedMeals.map((meal:Meal) => meal.idMeal);
     return( 
-    <Results propValue={mealIDS} />
+    <Link to={`/results/${mealIDS}`}>Go to Second Page</Link>
     );
   };
   console.log("selectedMealIds:", selectedMeals.map((meal: Meal) => meal.idMeal));
 
 
-  // const registerSelectedMeals = (selectedMealIds: string[]): void => {
-  //   // make API call to register the selected meal ids to the backend
-  //   // using fetch or any other HTTP library
-  //   fetch('http://your-backend.com/register-selected-meals', {
-  //     method: 'POST',
-  //     body: JSON.stringify({ selectedMealIds }),
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     }
-  //   })
-  //   .then((response) =>  {
-  //     // handle response from the backend if necessary
-  //      // if the response is successful, show a success message to the user
-  //     if (response.ok) {
-  //       console.log('Selected meals have been registered successfully!')
-  //       return response.json();
-  //       // if the response is not successful, show an error message to the user
-  //     } else {
-  //       return new Error('Failed to register selected meals. There was an error registering the selected meals');
-  //     }
-      
-  //   })
-  //   .catch((error) => {
-  //     // handle error by showing an error message to the user
-  //     // handle error if necessary
-  //     console.error(error);
-  //   });
-  // }; // this function assumes that the backend API is already set up to receive and handle the registration of selected meals.
-
+  
   return (
     
     <div>
@@ -485,6 +457,36 @@ interface Meal {
   
   );
 }
+
+// const registerSelectedMeals = (selectedMealIds: string[]): void => {
+  //   // make API call to register the selected meal ids to the backend
+  //   // using fetch or any other HTTP library
+  //   fetch('http://your-backend.com/register-selected-meals', {
+  //     method: 'POST',
+  //     body: JSON.stringify({ selectedMealIds }),
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     }
+  //   })
+  //   .then((response) =>  {
+  //     // handle response from the backend if necessary
+  //      // if the response is successful, show a success message to the user
+  //     if (response.ok) {
+  //       console.log('Selected meals have been registered successfully!')
+  //       return response.json();
+  //       // if the response is not successful, show an error message to the user
+  //     } else {
+  //       return new Error('Failed to register selected meals. There was an error registering the selected meals');
+  //     }
+      
+  //   })
+  //   .catch((error) => {
+  //     // handle error by showing an error message to the user
+  //     // handle error if necessary
+  //     console.error(error);
+  //   });
+  // }; // this function assumes that the backend API is already set up to receive and handle the registration of selected meals.
+
 
 
 
