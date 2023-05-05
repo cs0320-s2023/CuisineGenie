@@ -349,7 +349,7 @@ interface Meal {
 
 const [selectedMeals, setSelectedMeals] = useState<Meal[]>([]);
 
-export const handleGenerateListClick = (): React.ReactNode => {
+export const handleGenerateListClick = (): String[] => {
   return( 
     selectedMeals.map((meal:Meal) => meal.idMeal)
 // <Link
