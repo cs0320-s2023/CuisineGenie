@@ -7,6 +7,7 @@ import edu.brown.cs32.student.main.server.CuisineGenie.Responses.Meals;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Random;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -43,10 +44,8 @@ public class Generator implements Route
         try {
             for(Meals meal : this.mealIDs) {
                 String category = this.recipeUtils.getCategory(meal);
-    
-                if(this.categoriesList.contains(category) == false) {
-                    this.categoriesList.add(category);
-                }
+
+                this.categoriesList.add(category);
     
                 // for(String ingredient : ingredientsList) {
                 //     String ingredientURL = "https://www.themealdb.com/api/json/v1/1/filter.php?i=" + ingredient;
@@ -81,28 +80,61 @@ public class Generator implements Route
         }
     }
 
-    public String mostCommonCategory() {
+//    public String mostCommonCategory() {
+//        Map<String, Integer> map = new HashMap<>();
+//
+//        for (String category : this.categoriesList) {
+//            Integer val = map.get(category);
+//            map.put(category, val == null ? 1 : val + 1);
+//        }
+//
+//        Entry<String, Integer> max = null;
+//
+//        for (Entry<String, Integer> e : map.entrySet()) {
+//            if (max == null || e.getValue() > max.getValue())
+//                max = e;
+//        }
+//        System.out.println("max cat: " + max.getKey());
+//
+//        return max.getKey();
+//
+//    }
+    public String mostCommonCategory(){
+        if (this.categoriesList == null || this.categoriesList.isEmpty()) {
+            return null;
+        }
 
-        // nothing in common
-        Random r = new Random();
-        int randomItem = r.nextInt(categoriesList.size());
-        String  mostCommon = categoriesList.get(randomItem);
+        Map<String, Integer> frequencyMap = new HashMap<>();
+        for (String str : this.categoriesList) {
+            frequencyMap.put(str, frequencyMap.getOrDefault(str, 0) + 1);
+        }
 
-        for(int i = 0; i < this.categoriesList.size(); i++) {
-            for(int j = 1; j < this.categoriesList.size() - 1; j++) {
-                if(this.categoriesList.get(i) == this.categoriesList.get(j)) {
-                    mostCommon = this.categoriesList.get(i);
-                }
+        String mostCommonString = null;
+        int highestFrequency = 0;
+
+        for (Map.Entry<String, Integer> entry : frequencyMap.entrySet()) {
+            if (entry.getValue() > highestFrequency) {
+                mostCommonString = entry.getKey();
+                highestFrequency = entry.getValue();
             }
         }
-        
-        return mostCommon;
+
+        if (highestFrequency == 1) {
+            Random random = new Random();
+            List<String> keys = new ArrayList<>(frequencyMap.keySet());
+            return keys.get(random.nextInt(keys.size()));
+        }
+        System.out.println("most common string : " + mostCommonString);
+
+        return mostCommonString;
+
+
     }
 
     public List<MealProperties> filterByCategory() throws IOException {
         //String url = "https://themealdb.com/api/json/v1/1/filter.php?c=" + this.mostCommonCategory();
         List<MealProperties> filteredByCategory = new ArrayList<>();
-        System.out.println(this.mostCommonCategory());
+//        System.out.println("most common cat list: "+  this.mostCommonCategory());
         Meals mealsFromCategory = this.recipeUtils.callAPI("https://themealdb.com/api/json/v1/1/filter.php?c=", this.mostCommonCategory(), Meals.class);
 
         for(MealProperties meal : mealsFromCategory.mealProperties())
@@ -124,7 +156,7 @@ public class Generator implements Route
         List<Meals> withCategoryAndArea = new ArrayList<>();
         for(MealProperties meal : filteredByCategory) {
             String id = meal.mealID();
-            System.out.println((id));
+           // System.out.println((id));
             Meals singleMeal = this.recipeUtils.callAPI("https://themealdb.com/api/json/v1/1/lookup.php?i=", id, Meals.class);
 //            System.out.println("the single meal: " + singleMeal)
             MealProperties mealProps = this.recipeUtils.callAPI("https://themealdb.com/api/json/v1/1/lookup.php?i=", id, MealProperties.class);
@@ -132,9 +164,9 @@ public class Generator implements Route
 
             withCategoryAndArea.add(singleMeal);
         }
-        System.out.println(withCategoryAndArea);
+        System.out.println("With category and area list:" + withCategoryAndArea);
 
-        System.out.println(this.areasList);
+        System.out.println("This is the areas list:" + this.areasList);
 
         for(Meals meal : withCategoryAndArea) {
             System.out.println(meal.mealProperties().get(0).area());
@@ -180,7 +212,7 @@ public class Generator implements Route
 //            Meals id5 = this.recipeUtils.fromJson(Meals.class, string5);
             System.out.println("converted string to id");
             this.mealIDs = new ArrayList<Meals>(List.of(id1, id2, id3, id4, id5));
-            System.out.println(this.mealIDs);
+            System.out.println("mealIDs from query params:" + this.mealIDs);
 
 
 
@@ -208,6 +240,7 @@ public class Generator implements Route
         Map<String, Object> responses = new HashMap<>();
         responses.put("result", "success");
         responses.put("ids", ids); // for frontend to fetch
+        System.out.println(ids);
         return responses;
     }
 
