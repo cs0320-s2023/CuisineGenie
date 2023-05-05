@@ -103,12 +103,11 @@ export default function ResultBox(props: ResultBoxProps) {
                 <a href={meals.strYoutube}>{meals.strMeal}</a>
               </h4>
               <h5>{meals.strArea}</h5>
+              <h5 id="category">{meals.strCategory}</h5>
               <p id="ingredients">Ingredients:</p>
               <p>1. {meals.strIngredient1}</p>
               <p>2. {meals.strIngredient2}</p>
               <p>3. {meals.strIngredient3}</p>
-              <p>4. {meals.strIngredient4}</p>
-              <p>5. {meals.strIngredient5}</p>
             </div>
           ))}
         </div>
