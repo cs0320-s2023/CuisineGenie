@@ -10,6 +10,8 @@ import "./components.css";
  */
 interface ResultBoxProps {
   id: String;
+  likeList: String[];
+  setLikeList: (data: String[]) => void;
 }
 
 //   // if item is unfavorited prior to button click, then add the item to favProducts list and store in variable updatedFavorites
@@ -47,6 +49,22 @@ export default function ResultBox(props: ResultBoxProps) {
 
   const handleLike = () => {
     setLike((prevState) => !prevState);
+    var mealName: String;
+    meal.map((meals) => (mealName = meals.strMeal));
+
+    if (like === false) {
+      var updatedFavorites = [...props.likeList, mealName];
+      // if item is favorited prior to button click, then check if the item is in the favProducts/updatedFavorites list and filter it out if so
+    } else if (like === true) {
+      var updatedFavorites = [...props.likeList];
+      var filtered = updatedFavorites.filter((compare) => {
+        return compare !== mealName;
+      });
+      updatedFavorites = filtered;
+    }
+
+    // set the state of favProducts to updatedFavorites to be used in App component
+    props.setLikeList(updatedFavorites);
   };
 
   const handleDislike = () => {

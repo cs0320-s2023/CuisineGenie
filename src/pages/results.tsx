@@ -4,6 +4,8 @@ import ResultList from "../components/ResultList";
 import Navbar from "./navbar";
 import "./pages.css";
 
+interface Results {}
+
 export default function Results() {
   const getRecipe = (args: String[]) => {
     fetch(
@@ -23,20 +25,14 @@ export default function Results() {
   };
 
   function regenerateList() {
-    getRecipe(["52820", "52929", "52923", "52850", "53011"]);
+    getRecipe(["52820", "52929", "52923", "52850", "53011", "52831"]);
   }
 
   useEffect(() => {
     console.log(resultBoxes);
   }, []);
 
-  const [resultBoxes, setResultBoxes] = useState([
-    "52820",
-    "52929",
-    "52923",
-    "52850",
-    "53011",
-  ]);
+  const [resultBoxes, setResultBoxes] = useState([]);
   const [ingredientsList, setIngredientsList] = useState([
     "52820",
     "52929",
@@ -45,12 +41,14 @@ export default function Results() {
     "53011",
   ]);
 
+  const [likeList, setLikeList] = useState([]);
+
   return (
     <div style={{ margin: "0", padding: "0" }}>
       {/* <div className="nav-color"></div> */}
       <Navbar />
       <div className="grid ">
-        <ResultList list={ingredientsList} />
+        <ResultList list={likeList} />
         <div className="header-results">
           <h4 id="purple">Want to explore other options?</h4>
           <h5 id="purple">
@@ -65,7 +63,11 @@ export default function Results() {
           </button>
           <div className="container">
             {resultBoxes.map((ID) => (
-              <ResultBox id={ID} />
+              <ResultBox
+                id={ID}
+                likeList={likeList}
+                setLikeList={setLikeList}
+              />
             ))}
           </div>
         </div>
