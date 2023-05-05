@@ -25,7 +25,8 @@ export default function Results() {
   };
 
   function regenerateList() {
-    getRecipe(["52820", "52929", "52923", "52850", "53011", "52831"]);
+    const strings = JSON.parse(localStorage.getItem("strings") || "[]");
+    getRecipe(strings);
   }
 
   useEffect(() => {
