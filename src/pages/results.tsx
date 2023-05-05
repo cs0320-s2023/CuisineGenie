@@ -38,10 +38,11 @@ export default function Results() {
     "53011",
   ]);
   const [ingredientsList, setIngredientsList] = useState([
-    "Tomatoes",
-    "Potatoes",
-    "Salt",
-    "Sugar",
+    "52820",
+    "52929",
+    "52923",
+    "52850",
+    "53011",
   ]);
 
   return (
@@ -51,10 +52,10 @@ export default function Results() {
       <div className="grid ">
         <ResultList list={ingredientsList} />
         <div className="header-results">
-          <h5>Want to explore other options?</h5>
-          <p>
+          <h4 id="purple">Want to explore other options?</h4>
+          <h5 id="purple">
             Select what you like or dislike and then click the button below!
-          </p>
+          </h5>
           <button
             className="list-button-style"
             role="button"

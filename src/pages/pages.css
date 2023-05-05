@@ -193,5 +193,14 @@ body {
 }
 
 .header-results {
-  margin-top: 20px;
+  margin-top: 25px;
+}
+
+#purple {
+  text-shadow: #a6a6ff 1px 0 10px;
+}
+
+a {
+  color: inherit;
+  font-weight: inherit;
 }
