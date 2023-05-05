@@ -25,6 +25,10 @@
   font-size: 14px;
 }
 
+#category {
+  font-weight: 400;
+}
+
 p {
   margin: 0px;
   font-size: 12px;
