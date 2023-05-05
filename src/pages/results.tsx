@@ -4,7 +4,7 @@ import ResultList from "../components/ResultList";
 import Navbar from "./navbar";
 import "./pages.css";
 
-export default function Results() {
+export default function Results1() {
   const getRecipe = (args: String[]) => {
     fetch(
       `http://localhost:61747/generaterecipes?1=${args[0]}&2=${args[1]}&3=${args[2]}&4=${args[3]}&5=${args[4]}`
