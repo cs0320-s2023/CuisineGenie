@@ -5,6 +5,8 @@ import "./quiz.css";
 import { Link } from 'react-scroll';
 import { eachMeal } from "../components/QuizBox";
 import { useState } from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import Results from "./results";
 
 export  function Quiz() {
 
@@ -176,17 +178,27 @@ export function Quiz1() {
     if (selectedMeals.find((m: Meal) => m.idMeal === meal.idMeal)) {
       // if so, remove it from the selectedMeals array
       setSelectedMeals(selectedMeals.filter((m:Meal) => m.idMeal !== meal.idMeal));
-    } else {
+    } else if (selectedMeals.length < 5) { // check if less than 5 meals are already selected
       // if not, add it to the selectedMeals array
       setSelectedMeals([...selectedMeals, meal]);
-    }
-    console.log("selectedMeals:", selectedMeals);
+    }else {
+          // if the maximum number of selected meals has been reached, show an error message to the user
+        console.error('You can only select up to 5 meals.');
+        }
   };
 
+
   const handleGenerateListClick = (): void => {
+    if (selectedMeals.length !== 5) {
+      // if the number of selected meals is not 5, show an error message to the user
+      alert('Please select exactly 5 meals to continue!');
+      return;
+    }
     registerSelectedMeals(selectedMeals.map((meal:Meal) => meal.idMeal));
     console.log("selectedMealIds:", selectedMeals.map((meal: Meal) => meal.idMeal));
   };
+
+
 
   const registerSelectedMeals = (selectedMealIds: string[]): void => {
     // make API call to register the selected meal ids to the backend
@@ -206,16 +218,7 @@ export function Quiz1() {
     });
   };
 
-  
 
-  // //   /**
-  // //    * To Do-List
-  // //    * - put everything in a container 
-  // //    * - create two seperate functions where one is displayind data and gettting data
-  // //    * - connect kayla section with mine 
-  // //    * - data: name, id, ingredients, 
-  // //    */
-    
     return (
       <div>
         <Navbar />
@@ -310,10 +313,12 @@ interface Meal {
   strMealThumb: string;
 }
 
+
+
  // assume meals is an array of meal objects fetched from the API
  const meals: Meal[] = [
-  { idMeal: '52887', strMeal: 'Kedgeree', strMealThumb: 'https:\/\/www.themealdb.com\/images\/media\/meals\/utxqpt1511639216.jpg' },
-  { idMeal: '52947', strMeal: 'Ma Po Tofu', strMealThumb: 'https:\/\/www.themealdb.com\/images\/media\/meals\/1525874812.jpg' },
+  {idMeal: '52887', strMeal: 'Kedgeree', strMealThumb: 'https:\/\/www.themealdb.com\/images\/media\/meals\/utxqpt1511639216.jpg' },
+  {idMeal: '52947', strMeal: 'Ma Po Tofu', strMealThumb: 'https:\/\/www.themealdb.com\/images\/media\/meals\/1525874812.jpg' },
   {idMeal:'52912', strMeal: 'Three-cheese souffles', strMealThumb: "https:\/\/www.themealdb.com\/images\/media\/meals\/sxwquu1511793428.jpg" },
   {idMeal: '52814', strMeal: 'Thai Green Curry', strMealThumb: 'https:\/\/www.themealdb.com\/images\/media\/meals\/sstssx1487349585.jpg'},
   {idMeal: '52944', strMeal: 'Escovitch Fish', strMealThumb: 'https:\/\/www.themealdb.com\/images\/media\/meals\/1520084413.jpg'  },
@@ -338,6 +343,9 @@ interface Meal {
   
   // ...and so on, up to 20 meals
 ];
+// This code defines a functional component called MealQuiz that renders a quiz interface for selecting five favorite meals out of a list of meals. It uses the React useState hook to manage state for the selected meals.
+
+
 
  export default function MealQuiz(){
   const [selectedMeals, setSelectedMeals] = useState<Meal[]>([]);
@@ -348,37 +356,53 @@ interface Meal {
     if (selectedMeals.find((m: Meal) => m.idMeal === meal.idMeal)) {
       // if so, remove it from the selectedMeals array
       setSelectedMeals(selectedMeals.filter((m:Meal) => m.idMeal !== meal.idMeal));
-    } else {
+    } else if (selectedMeals.length < 5) { // check if less than 5 meals are already selected
       // if not, add it to the selectedMeals array
       setSelectedMeals([...selectedMeals, meal]);
-    }
-   
+    }else {
+          // if the maximum number of selected meals has been reached, show an error message to the user
+        console.error('You can only select up to 5 meals.');
+        }
   };
   console.log("selectedMeals:", selectedMeals);
 
-  const handleGenerateListClick = (): void => {
-    registerSelectedMeals(selectedMeals.map((meal:Meal) => meal.idMeal));
+  const handleGenerateListClick = (): React.ReactNode => {
+    const mealIDS = selectedMeals.map((meal:Meal) => meal.idMeal);
+    return( 
+    <Results propValue={mealIDS} />
+    );
   };
   console.log("selectedMealIds:", selectedMeals.map((meal: Meal) => meal.idMeal));
 
 
-  const registerSelectedMeals = (selectedMealIds: string[]): void => {
-    // make API call to register the selected meal ids to the backend
-    // using fetch or axios or any other HTTP library
-    fetch('http://your-backend.com/register-selected-meals', {
-      method: 'POST',
-      body: JSON.stringify({ selectedMealIds }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    .then((response) => {
-      // handle response from the backend if necessary
-    })
-    .catch((error) => {
-      // handle error if necessary
-    });
-  };
+  // const registerSelectedMeals = (selectedMealIds: string[]): void => {
+  //   // make API call to register the selected meal ids to the backend
+  //   // using fetch or any other HTTP library
+  //   fetch('http://your-backend.com/register-selected-meals', {
+  //     method: 'POST',
+  //     body: JSON.stringify({ selectedMealIds }),
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     }
+  //   })
+  //   .then((response) =>  {
+  //     // handle response from the backend if necessary
+  //      // if the response is successful, show a success message to the user
+  //     if (response.ok) {
+  //       console.log('Selected meals have been registered successfully!')
+  //       return response.json();
+  //       // if the response is not successful, show an error message to the user
+  //     } else {
+  //       return new Error('Failed to register selected meals. There was an error registering the selected meals');
+  //     }
+      
+  //   })
+  //   .catch((error) => {
+  //     // handle error by showing an error message to the user
+  //     // handle error if necessary
+  //     console.error(error);
+  //   });
+  // }; // this function assumes that the backend API is already set up to receive and handle the registration of selected meals.
 
   return (
     
@@ -461,6 +485,8 @@ interface Meal {
   
   );
 }
+
+
 
 
  
