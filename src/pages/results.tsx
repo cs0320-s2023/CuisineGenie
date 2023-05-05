@@ -34,13 +34,6 @@ export default function Results() {
   }, []);
 
   const [resultBoxes, setResultBoxes] = useState([]);
-  const [ingredientsList, setIngredientsList] = useState([
-    "52820",
-    "52929",
-    "52923",
-    "52850",
-    "53011",
-  ]);
 
   const [likeList, setLikeList] = useState([]);
 
@@ -51,16 +44,16 @@ export default function Results() {
       <div className="grid ">
         <ResultList list={likeList} />
         <div className="header-results">
-          <h4 id="purple">Want to explore other options?</h4>
+          <h4 id="purple">Completed the quiz?</h4>
           <h5 id="purple">
-            Select what you like or dislike and then click the button below!
+            Click the button below to generate a list of recommedations!
           </h5>
           <button
             className="list-button-style"
             role="button"
             onClick={regenerateList}
           >
-            Regenerate List
+            Generate List
           </button>
           <div className="container">
             {resultBoxes.map((ID) => (
