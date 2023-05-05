@@ -369,13 +369,12 @@ interface Meal {
   const handleGenerateListClick = (): React.ReactNode => {
     const mealIDS = selectedMeals.map((meal:Meal) => meal.idMeal);
     return( 
-  
-  <Link
-    to={{
-    pathname: "/results",
-    state: mealIDS // your data array of objects
-  }}
-></Link>
+     <Results propValue={mealIDS} />
+  // <Link
+  //   to= {{
+  //   pathname: "/results",
+  //   state: mealIDS // your data array of objects
+  // }}></Link>
     );
   };
   console.log("selectedMealIds:", selectedMeals.map((meal: Meal) => meal.idMeal));
