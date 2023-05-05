@@ -8,6 +8,7 @@ import { useState } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Results from "./results";
 
+
 export  function Quiz() {
 
 // //   /**
@@ -346,9 +347,22 @@ interface Meal {
 // This code defines a functional component called MealQuiz that renders a quiz interface for selecting five favorite meals out of a list of meals. It uses the React useState hook to manage state for the selected meals.
 
 
+const [selectedMeals, setSelectedMeals] = useState<Meal[]>([]);
+
+export const handleGenerateListClick = (): React.ReactNode => {
+  return( 
+    selectedMeals.map((meal:Meal) => meal.idMeal)
+// <Link
+//   to= {{
+//   pathname: "/results",
+//   state: mealIDS // your data array of objects
+// }}></Link>
+  );
+};
+
+
 
  export default function MealQuiz(){
-  const [selectedMeals, setSelectedMeals] = useState<Meal[]>([]);
 
  
   const handleMealClick = (meal: Meal): void => {
@@ -367,6 +381,7 @@ interface Meal {
   console.log("selectedMeals:", selectedMeals);
 
   const handleGenerateListClick = (): React.ReactNode => {
+    const history = useHistory();
     const mealIDS = selectedMeals.map((meal:Meal) => meal.idMeal);
     return( 
      <Results propValue={mealIDS} />
