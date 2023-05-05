@@ -9,7 +9,9 @@ import "./components.css";
  * commands is a map that maps from the string to a REPLFunction (ex. "load" to load REPLFunction)
  */
 interface ResultBoxProps {
-  id: Number;
+  id: String;
+  likeList: String[];
+  setLikeList: (data: String[]) => void;
 }
 
 //   // if item is unfavorited prior to button click, then add the item to favProducts list and store in variable updatedFavorites
@@ -47,6 +49,22 @@ export default function ResultBox(props: ResultBoxProps) {
 
   const handleLike = () => {
     setLike((prevState) => !prevState);
+    var mealName: String;
+    meal.map((meals) => (mealName = meals.strMeal));
+
+    if (like === false) {
+      var updatedFavorites = [...props.likeList, mealName];
+      // if item is favorited prior to button click, then check if the item is in the favProducts/updatedFavorites list and filter it out if so
+    } else if (like === true) {
+      var updatedFavorites = [...props.likeList];
+      var filtered = updatedFavorites.filter((compare) => {
+        return compare !== mealName;
+      });
+      updatedFavorites = filtered;
+    }
+
+    // set the state of favProducts to updatedFavorites to be used in App component
+    props.setLikeList(updatedFavorites);
   };
 
   const handleDislike = () => {
@@ -69,18 +87,13 @@ export default function ResultBox(props: ResultBoxProps) {
     fetchMealData();
   }, []);
 
-  const handleClick = () => {
-    meal.map((meals) => window.location.replace(meals.strYoutube));
-  };
-
   return (
-    <button
+    <div
       tabIndex={0}
       className="result-box"
       aria-label="contains result"
       data-testid="result"
       role="result-box"
-      onClick={handleClick}
     >
       {/* TODO: Add a div for each command in the history */}
       {/* Hint: You can use the map function to iterate over an array */}
@@ -104,18 +117,19 @@ export default function ResultBox(props: ResultBoxProps) {
         <div className="margin-10px">
           {meal.map((meals, index) => (
             <div key={index}>
-              <h4>{meals.strMeal}</h4>
+              <h4>
+                <a href={meals.strYoutube}>{meals.strMeal}</a>
+              </h4>
               <h5>{meals.strArea}</h5>
+              <h5 id="category">{meals.strCategory}</h5>
               <p id="ingredients">Ingredients:</p>
               <p>1. {meals.strIngredient1}</p>
               <p>2. {meals.strIngredient2}</p>
               <p>3. {meals.strIngredient3}</p>
-              <p>4. {meals.strIngredient4}</p>
-              <p>5. {meals.strIngredient5}</p>
             </div>
           ))}
         </div>
       </div>
-    </button>
+    </div>
   );
 }

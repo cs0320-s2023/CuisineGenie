@@ -420,12 +420,13 @@
 .quiz-box{
   background-color: #EAEAFF;
   width: 300px;
-  height: 250px;
+  height: 255px; /**height was changed from 250 to 255 to incldude  name  **/
   border-radius: 25px;
   box-shadow: 3px 5px 5px darkgray;
   margin: 20px;
   padding: 24px;
   font-family: "Montserrat", sans-serif;
+  
 }
 
 

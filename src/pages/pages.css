@@ -15,7 +15,7 @@ nav {
 }
 
 .navbar-item {
-  font-weight:bold;
+  font-weight: bold;
 }
 
 body {
@@ -162,17 +162,15 @@ body {
   cursor: auto;
 }
 
-
-
 @media screen and (max-width: 1400px) {
   .brand-icon {
-      font-size: 5vh;
+    font-size: 5vh;
   }
 }
 
 @media screen and (min-width: 1400px) {
-  .brand-icon{
-      font-size: 8.5vh;
+  .brand-icon {
+    font-size: 8.5vh;
   }
 }
 
@@ -194,5 +192,15 @@ body {
   object-fit: cover;
 }
 
+.header-results {
+  margin-top: 25px;
+}
 
+#purple {
+  text-shadow: #a6a6ff 1px 0 10px;
+}
 
+a {
+  color: inherit;
+  font-weight: inherit;
+}

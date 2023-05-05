@@ -1,8 +1,6 @@
 import { REPLFunction } from "./apiCaller/REPLFunction";
 import ReactDOM from "react-dom";
 import { HashRouter, Routes, Route } from "react-router-dom";
-import quiz from "./pages/quiz";
-import results from "./pages/results";
 import Layout from "./Layout"
 import ScrollToTop from "./ScrollToTop"
 
@@ -12,16 +10,10 @@ import Header from "./components/Header";
 import HistoryBox from "./components/HistoryBox";
 import InputBox from "./components/InputBox";
 import { load, view, search, mode } from "./apiCaller/commands";
-import {
-  mockMap,
-  fruits,
-  artists,
-  mockSearchMap,
-  csvFile,
-} from "../tests/componentsTest/mockedFunctionalityTest/mockedJson";
 import Results from "./pages/results";
-import Profile from "./pages/profile";
 import Quiz from "./pages/quiz";
+import MealQuiz from "./pages/quiz";
+import Quiz1 from "./pages/quiz";
 
 export default function App() {
   return (
@@ -29,8 +21,8 @@ export default function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Quiz />} />
-          <Route path="/quiz" element={<Quiz />} />
+          <Route index element={<MealQuiz/>} />
+          <Route path="/quiz" element={<MealQuiz />} />
           <Route path="/results" element={<Results />} />
         </Route>
       </Routes>
