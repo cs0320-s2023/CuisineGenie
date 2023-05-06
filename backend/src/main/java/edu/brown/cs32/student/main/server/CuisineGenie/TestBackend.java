@@ -64,7 +64,7 @@ public class TestBackend() {
 
     // Success Responses
     @Test
-    public void AllSameCategory() {
+    public void AllSameCategory() throws IOException {
         // beef
         HttpURLConnection clientConnection = tryRequest("generaterecipe?1=52874&2=52878&3=53071&4=52997&5=52904");
         assertEquals(200, clientConnection.getResponseCode());
@@ -88,7 +88,7 @@ public class TestBackend() {
     }
 
     @Test
-    public void AllDifferentCategories() {
+    public void AllDifferentCategories() throws IOException {
         // beef, chicken, vegetarian, dessert, breakfast
         HttpURLConnection clientConnection = tryRequest("generaterecipe?1=52874&2=53050&3=52807&4=53049&5=52965");
         assertEquals(200, clientConnection.getResponseCode());
@@ -101,7 +101,7 @@ public class TestBackend() {
     }
 
     @Test
-    public void OneCommonCategory() {
+    public void OneCommonCategory() throws IOException {
         // chicken, chicken, vegetarian, dessert, breakfast
         HttpURLConnection clientConnection = tryRequest("generaterecipe?1=52765&2=53050&3=52807&4=53049&5=52965");
         assertEquals(200, clientConnection.getResponseCode());
@@ -114,7 +114,7 @@ public class TestBackend() {
     }
 
     @Test
-    public void TieCategories() {
+    public void TieCategories() throws IOException {
         // chicken, chicken, vegetarian, vegetarian, breakfast
         HttpURLConnection clientConnection = tryRequest("generaterecipe?1=52765&2=53050&3=52807&4=52771&5=52965");
         assertEquals(200, clientConnection.getResponseCode());
