@@ -3,77 +3,15 @@ import { REPLFunction } from "../apiCaller/REPLFunction";
 import "./components.css";
 import "/src/pages/quiz.css"
 
+export const TEXT_imagebox_accessible_label = "You selected name of meal:"
+ const TEXT_quizbox_accessible_aria= "a quiz box generator that generates 20 container with the image of a meal and the name of the meal"
+ const TEXT_quiz_accessible_label = "images for 20 meals"
+export const TEXT_quizbox_accessible_role = "quiz-box"
+
+
 /**
- * PROPS: input box takes in three props, history, setHistory, and commands
- * history is a public state variable of an array of jsx elements
- * setHistory is a public state variable that is used to update the state variable of history
- * commands is a map that maps from the string to a REPLFunction (ex. "load" to load REPLFunction)
- */
-interface QuizBoxProps {
- 
-  image: string
-  name: string
-//   name: string;
-}
-
-
-
-
-
-
-
-// export function getMealIds(props: eachMeal){
-//    const [selectedMeals, setSelectedMeals] = useState([]);
-//    const [meals, setMeals] = useState<eachMeal[]>([]);
-
-//    const handleMealClick = (id: string) => {
-//     // Make a copy of the selectedMeals array and add the new meal id to it
-//     const newSelectedMeals = [...selectedMeals, id];
-//     setSelectedMeals(newSelectedMeals);
-//   };
-
-
-// }
-
-
-
-
-
-
-
-// function getMealIDS(){
-//   const [mealIds, setMealIds] = useState([]);
-//   useEffect(() => {
-//     async function fetchMealIds() {
-//       const ids = [];
-//       for (let i = 1; i <= 20; i++) {
-//         const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${i}`);
-//         const data = await response.json();
-//         ids.push(data.meals[0].idMeal);
-//       }
-//       setMealIds(ids);
-//     }
-//     fetchMealIds();
-//   }, []);
-//   return (
-//     <div>
-//       <h2>Meal IDs:</h2>
-//       <ul>
-//         {mealIds.map((id) => (
-//           <li key={id}>{id}</li>
-//         ))}
-//       </ul>
-//     </div>
-//   )
-// }
-
-// get meal info that gets the data
-//display data that displays all of the info 
-/**
- * React Component for Input Box that handles what commands are typed into the input box
- * @param props defined above: history, setHistory, and commands
- * @returns a JSX.Element that prints the correct output for the command on the screen
- */
+* Interface used to specify the property and types that the QuizBoxOne should have
+*/
 
 export interface eachMeal {
   idMeal: string;
@@ -83,55 +21,30 @@ export interface eachMeal {
   selected: boolean;
 
 }
-export function QuizBox(props: QuizBoxProps) {
-    return (
-        <div
-        tabIndex={0}
-        className="quiz-box"
-        aria-label="contains quiz"
-        data-testid="quiz"
-        role="quiz-box"
-      >
 
-        <div className = "responses-image-grid">
-            <div className = "quiz-box-image-container"> 
-            <img className = "quiz-box-image mb-2" src = {props.image}></img>
-            </div>  
-        </div> 
-
-        <div className = "responses-images-name-container">
-          <div className = "responses-images-name">
-            <h6> {props.name}</h6>
-          </div>
-
-        </div>
-
-      </div>
-
-    )
-}
-
-
-
+/**
+* This function is used to render the container of the 20 meals in the quiz selection page. This function ensures that only the quizname and quizimage gets rendered.
+* @param props of type interface eachMeal
+* @returns HTML and CSS that will be rendered in Quiz
+*/
 export default function QuizBoxOne(props: eachMeal) {
   return (
-    
       <div
       tabIndex={0}
       className={`quiz-box ${props.selected ? 'selected' : ''}`}
-      aria-label="a quiz box generator that generates 20 container with the image of a meal and the name of the meal"
       data-testid="quiz"
-      role="quiz-box"
-      aria-describedby="a quiz box generator that generates 20 container with the image of a meal and the name of the meal"
+     
+      role= {TEXT_quizbox_accessible_role}
       style={{ border: props.selected ? '3px solid blue' : '3px solid black' }}
       onClick={props.onClick} 
-    
-      
     >
 
       <div className = "responses-image-grid">
           <div className = "quiz-box-image-container"> 
-          <img className = "quiz-box-image mb-2" src = {props.strMealThumb} alt = {props.strMeal}></img>
+          <img 
+          className = "quiz-box-image mb-2" 
+          aria-label= {TEXT_imagebox_accessible_label}
+          src = {props.strMealThumb} alt = {props.strMeal}></img>
           </div>  
       </div> 
 

@@ -9,7 +9,6 @@ const NavigationWrapper = styled.nav`
   justify-content: space-between;
 `;
 
-
 export const Header_AriaLabel = "CuisineGenie";
 export const Header_Role = "Application header"
 export const Header_Describedby = "Welcome to Cuisine Genie. Cuisine Genie is an application where users are able to generate recipes they will like based on their selection of meals in the quiz page. They will be able to see their generated recipes in the results page"

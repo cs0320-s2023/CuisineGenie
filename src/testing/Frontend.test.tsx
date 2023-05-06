@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import App from "../App";
 import Navbar from "../pages/navbar";
 
+
 test("loads and displays empty result list component", async () => {
   let list: String[] = [];
   let vidList: String[] = [];
@@ -21,8 +22,7 @@ describe("stencil code example", () => {
    let header: HTMLElement;
   
   
-  const hello = "This is the navigation bar of our application. In here, we have the name of the application and icon which is CuisineGenie. Then, we have tabs of our program which is the quiz and results."
-  const hello1 ="navigation-bar"
+ 
   
   test("loads and displays header", async () => {
     render(<Navbar />)
