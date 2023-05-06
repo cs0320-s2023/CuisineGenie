@@ -10,6 +10,7 @@ import "./components.css";
  */
 interface ResultListProps {
   list: String[];
+  vidList: String[];
 }
 
 /**
@@ -39,6 +40,14 @@ export default function ResultList(props: ResultListProps) {
   //   fetchMealName();
   // }, []);
 
+  const fetchMealYoutube = async (name: String) => {
+    const response = await fetch(
+      `www.themealdb.com/api/json/v1/1/search.php?s=${name}`
+    );
+    const data = await response.json();
+    return data.meals.strYoutube;
+  };
+
   return (
     <div
       tabIndex={0}
@@ -52,8 +61,9 @@ export default function ResultList(props: ResultListProps) {
       <h4 className="margin-30px">Your Favorited Items:</h4>
       {props.list.map((text, index) => (
         <h5>
-          {/* do we need measurements? */}
-          {index + 1}. {text}
+          <a href={props.vidList[index]} target="_blank">
+            {index + 1}. {text}
+          </a>
         </h5>
       ))}
     </div>

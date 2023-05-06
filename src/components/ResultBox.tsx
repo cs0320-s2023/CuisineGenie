@@ -12,6 +12,8 @@ interface ResultBoxProps {
   id: String;
   likeList: String[];
   setLikeList: (data: String[]) => void;
+  vidList: String[];
+  setVidList: (data: String[]) => void;
 }
 
 //   // if item is unfavorited prior to button click, then add the item to favProducts list and store in variable updatedFavorites
@@ -52,19 +54,29 @@ export default function ResultBox(props: ResultBoxProps) {
     var mealName: String;
     meal.map((meals) => (mealName = meals.strMeal));
 
+    var vidLink: String;
+    meal.map((meals) => (vidLink = meals.strYoutube));
+
     if (like === false) {
       var updatedFavorites = [...props.likeList, mealName];
+      var updatedVids = [...props.vidList, vidLink];
       // if item is favorited prior to button click, then check if the item is in the favProducts/updatedFavorites list and filter it out if so
     } else if (like === true) {
       var updatedFavorites = [...props.likeList];
+      var updatedVids = [...props.vidList];
       var filtered = updatedFavorites.filter((compare) => {
         return compare !== mealName;
       });
+      var vidFiltered = updatedVids.filter((compare1) => {
+        return compare1 !== vidLink;
+      });
       updatedFavorites = filtered;
+      updatedVids = vidFiltered;
     }
 
     // set the state of favProducts to updatedFavorites to be used in App component
     props.setLikeList(updatedFavorites);
+    props.setVidList(updatedVids);
   };
 
   const handleDislike = () => {
@@ -104,21 +116,23 @@ export default function ResultBox(props: ResultBoxProps) {
           ))}
 
           <button className="button-style" role="button" onClick={handleLike}>
-            {like ? "♥" : "♡"}
+            Favorite: {like ? "♥" : "♡"}
           </button>
-          <button
+          {/* <button
             className="dislike-button-style"
             role="button"
             onClick={handleDislike}
           >
             {dislike ? "✖" : "x"}
-          </button>
+          </button> */}
         </div>
         <div className="margin-10px">
           {meal.map((meals, index) => (
             <div key={index}>
               <h4>
-                <a href={meals.strYoutube}>{meals.strMeal}</a>
+                <a href={meals.strYoutube} target="_blank">
+                  {meals.strMeal}
+                </a>
               </h4>
               <h5>{meals.strArea}</h5>
               <h5 id="category">{meals.strCategory}</h5>

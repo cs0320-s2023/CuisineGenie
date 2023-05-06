@@ -18,6 +18,7 @@ export default function Results() {
         if (data["result"] === "success") {
           console.log(data["ids"]);
           setResultBoxes(data["ids"]);
+          console.log(resultBoxes);
         } else {
           return data["errorMessage"];
         }
@@ -25,24 +26,26 @@ export default function Results() {
   };
 
   function regenerateList() {
-    const strings = JSON.parse(localStorage.getItem("strings") || "[]");
-    getRecipe(strings);
+    setResultBoxes([]);
+    getRecipe(resultBoxes);
   }
 
   useEffect(() => {
-    console.log(resultBoxes);
+    const strings = JSON.parse(localStorage.getItem("strings") || "[]");
+    setResultBoxes(strings);
   }, []);
 
   const [resultBoxes, setResultBoxes] = useState([]);
 
   const [likeList, setLikeList] = useState([]);
+  const [vidList, setVidList] = useState([]);
 
   return (
     <div style={{ margin: "0", padding: "0" }}>
       {/* <div className="nav-color"></div> */}
       <Navbar />
       <div className="grid ">
-        <ResultList list={likeList} />
+        <ResultList list={likeList} vidList={vidList} />
         <div className="header-results">
           <h4 id="purple">Completed the quiz?</h4>
           <h5 id="purple">
@@ -61,6 +64,8 @@ export default function Results() {
                 id={ID}
                 likeList={likeList}
                 setLikeList={setLikeList}
+                vidList={vidList}
+                setVidList={setVidList}
               />
             ))}
           </div>
