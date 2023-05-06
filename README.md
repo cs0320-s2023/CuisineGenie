@@ -1,41 +1,42 @@
-# Echo
+# CuisineGenie
 
 ## Project Description
+https://github.com/cs0320-s2023/CuisineGenie.git 
 
-For this sprint, we integrated the front-end and back-end components we had previously been developing separately such as through Echo and Server. We created a REPL interface where users can type in their commands such as mode, load, view, and search into the input box, and then the output gets printed on the screen.
+Katherine Mao (kmao5), Kayla Mukai (kmukai), Lucy Nguyen (lnguye48), Jennifer Tran (jtran43)
 
-### Jennifer Tran (jtran43) & Kayla Mukai (kmukai)
 
-We worked on majority of the project together, and it took us 15 hours.
+CuisineGenie is a web application that helps people explore different cuisines! We take users’ preferences by having them take a quiz and select their top 5 most appealing dishes from a comprehensive list. We use our algorithm to find common themes or categories in their choices and recommend dishes from other cuisines/cultures that contain their favorite category. Our motivation behind this project stems from the fact that discovering new types of food may be difficult for people who do not have prior knowledge of various cuisines. We wanted to introduce users to new cuisines by analyzing their preferences and recommending recipes from different backgrounds that share their preferences.
 
-## [Link to Repository](https://github.com/cs0320-s2023/sprint-4-jtran43-kmukai.git)
+
+We worked on majority of the project together, and it took us 30 hours.
+
 
 ### Design Choices
+Our project has both front-end and back-end development. Our project relied heavily on the MealDB API for the recipes shown to users. In our frontend, we have users choose their top 5 dishes, then that data is sent to our backend. We designed our backend as an intermediate for our application and the API. Once the backend receives the data, it calls the API so we can convert the API results into Meals and MealProperties objects. We chose to use records to help us convert API results into objects that we can extract data from. 
 
-Our project has both front-end and back-end development. The back-end development was taken from Server. The front-end was developed from partly the gearup code with the Echo functionality in mind along with the new .tsx files that use React calls to the API.
 
-### Relationships between classes/interfaces
+### Errors or Bugs
 
-Our App.tsx class is our parent file. We have Header, HistoryBox, and InputBox components that can change and access states from the App class since we passed the states from the App class into the individual components. Our Header is just printing the REPL part of our screen, the HistoryBox maps the history state to print the history, and then the InputBox handles the inputted commands into the textbox. Then, we also have commands.tsx that holds our REPLFunctions that we can call using our inputs that we type into our input box component through referring to our hashmap of registered commands. Commands.tsx is where we have our new React functions that use the results from our call to the API and then return a string depending on what the message to be printed on our screen is. Then that is updated in history and then printed on the history screen.
-
-### Data Structures & Runtime Optimizations
-
-In our code, instead of having a large if or switch statement, we created a hashmap that we could registers our commands like mode, load, view, and search, so that they can be called on by command in input box and have the backend API server called from our commands.tsx file. Also, we used states throughout our project to set history, to check the mode to see if we should print the output in verbose or brief mode, and also to set the text in the textbox. Initially, we had the isVerbose state inside of the App.tsx and passed it to InputBox component. However, we decided to limit the scope of that state to just the InputBox component because it was never being used in the App, which helped with runtime.
-
-###Errors or Bugs
-
-There is a bug with our file directories and file paths. We ended up needing to use
-the absolute file path to search and parse our CSV files. This was because when we used the content root path, our backend tests worked but our frontend program did not. When we used the repository root, our front end program was able to make calls to our server, but this would fail our backend tests.
+We were unable to link the quiz results page to our generate list button without compromising the functionality of the results page. 
 
 ### Testing Suite
 
-We tested the Load Handlers, Search Handler, View Handler, Weather Handler, CSV Searcher, and CSV Parser (comments on tests are in the testing suites)
-We used mocking to test our API calls. We also test our components to see if they update when they are rendered. Comments on these tests are in the testing suites
+To run our tests, click the green play button in our TestBackend class.
+AllSameCategory() – tests that 5 recipes from the same category return new recipes within that category.
+
+AllDifferentCategories() – Tests that when there are 5 different categories, a list of reccomendations is still generated since the category will be randomly chosen.
+
+OneCommonCategory() – tests that the only common category, chicken, will result in more chicken recipes. 
+
+TieCategories() – tests that tied categories result in a list of recipes, since the category will be chosen randomly. 
+
 
 ### How to Build and Run Tests and Program
 
-To build our program, we first have to start the backend server. This can be done by navigating into our backend folder, then to src, then to main/java/e... then clicking on Server.java and pressing the play button to start the server. Then, we move to the frontend side of things. In a separate terminal, navigate to the folder that this sprint is stored in and then type in npm install once before everything and then npm run dev. Then after that you can press the 'o' key and then your browser of choice should open up with the REPL interface. From there you can enter in your commands like load (load filename), view (view), and search (search target hasHeader) with the proper number of arguments and get a resulting message. You can also toggle modes from brief to verbose by typing in mode brief/verbose.
+To run our program, clone our repository: https://github.com/cs0320-s2023/CuisineGenie.git 
+Open the backend folder in IntelliJ to run the backend server. Run the server by clicking the green play button in the Server Class. Then, open the repository in VSCode. In VScode, type “npm run dev” in the terminal to start the frontend. On the quiz page, click your top 5 most appealing dishes, then click Generate List. Next, navigate to the results tab and click the Generate list button once more and wait for new recipes to generate! You can favorite recipes and click the titles to be redirected to its corresponding youtube tutorial. Once you are ready to get new recipes, go back to the quiz page to retake the quiz and regenerate the list.
 
 ### Collaboration with classmates
 
-We drew inspiration for how to implement tasks 1-4 & 6 from the gear up and from parts of sprint-4-jkdai-kjiang32's repo. Majority of the code however was outlined in the gear up, but just figuring out how to piece it together was inspired by them. For testing, we drew inspiration from sprint-4-adufort1-lnguye48. Thank you to cs32 students and class code for the help!
+We drew inspiration for converting API Results into objects from sprint-3-abenjell-hmasamur. Thank you to CS32 class code, TAs, and students for all their help on this project!
