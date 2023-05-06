@@ -19,35 +19,6 @@ interface ResultListProps {
  * @returns a JSX.Element that prints the correct output for the command on the screen
  */
 export default function ResultList(props: ResultListProps) {
-  // const [mealList, setMealList] = useState([]);
-
-  // const fetchMealName = () => {
-  //   for (var i = 0; i < props.list.length; i++) {
-  //     console.log(props.list[i]);
-  //     fetch(
-  //       `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${props.list[i]}`
-  //     )
-  //       .then((response) => {
-  //         return response.json();
-  //       })
-  //       .then((data) => {
-  //         setMealList((mealList) => mealList.concat(data.meals.strMeal));
-  //       });
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchMealName();
-  // }, []);
-
-  const fetchMealYoutube = async (name: String) => {
-    const response = await fetch(
-      `www.themealdb.com/api/json/v1/1/search.php?s=${name}`
-    );
-    const data = await response.json();
-    return data.meals.strYoutube;
-  };
-
   return (
     <div
       tabIndex={0}
@@ -58,7 +29,9 @@ export default function ResultList(props: ResultListProps) {
     >
       {/* TODO: Add a div for each command in the history */}
       {/* Hint: You can use the map function to iterate over an array */}
-      <h4 className="margin-30px">Your Favorited Items:</h4>
+      <h4 className="margin-30px" aria-label="favorites list">
+        Your Favorited Items:
+      </h4>
       {props.list.map((text, index) => (
         <h5>
           <a href={props.vidList[index]} target="_blank">

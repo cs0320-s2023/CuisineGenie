@@ -103,7 +103,7 @@ export default function ResultBox(props: ResultBoxProps) {
     <div
       tabIndex={0}
       className="result-box"
-      aria-label="contains result"
+      aria-label="recipe box"
       data-testid="result"
       role="result-box"
     >
@@ -112,10 +112,20 @@ export default function ResultBox(props: ResultBoxProps) {
       <div className="inner-box">
         <div>
           {meal.map((meals) => (
-            <img className="image" src={meals.strMealThumb + "/preview"} />
+            <img
+              className="image"
+              src={meals.strMealThumb + "/preview"}
+              alt={meals.strMeal + "image"}
+              aria-label="button to generate recipe list"
+            />
           ))}
 
-          <button className="button-style" role="button" onClick={handleLike}>
+          <button
+            className="button-style"
+            role="button"
+            onClick={handleLike}
+            aria-label="favorite button"
+          >
             Favorite: {like ? "♥" : "♡"}
           </button>
           {/* <button
@@ -130,13 +140,21 @@ export default function ResultBox(props: ResultBoxProps) {
           {meal.map((meals, index) => (
             <div key={index}>
               <h4>
-                <a href={meals.strYoutube} target="_blank">
+                <a
+                  href={meals.strYoutube}
+                  target="_blank"
+                  aria-label="click on meal name for youtube video"
+                >
                   {meals.strMeal}
                 </a>
               </h4>
-              <h5>{meals.strArea}</h5>
-              <h5 id="category">{meals.strCategory}</h5>
-              <p id="ingredients">Ingredients:</p>
+              <h5 aria-label="cuisine">{meals.strArea}</h5>
+              <h5 id="category" aria-label="category">
+                {meals.strCategory}
+              </h5>
+              <p id="ingredients" aria-label="ingredients">
+                Ingredients:
+              </p>
               <p>1. {meals.strIngredient1}</p>
               <p>2. {meals.strIngredient2}</p>
               <p>3. {meals.strIngredient3}</p>

@@ -40,11 +40,23 @@ export default function Results() {
   const [likeList, setLikeList] = useState([]);
   const [vidList, setVidList] = useState([]);
 
+  function handleKeyPress(event) {
+    if (event.key === "Enter") {
+      regenerateList();
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener("keypress", handleKeyPress);
+    return () => {
+      document.removeEventListener("keypress", handleKeyPress);
+    };
+  });
+
   return (
-    <div style={{ margin: "0", padding: "0" }}>
-      {/* <div className="nav-color"></div> */}
+    <div style={{ margin: "0", padding: "0" }} aria-label="contains results">
       <Navbar />
-      <div className="grid ">
+      <div className="grid">
         <ResultList list={likeList} vidList={vidList} />
         <div className="header-results">
           <h4 id="purple">Completed the quiz?</h4>
@@ -54,11 +66,15 @@ export default function Results() {
           <button
             className="list-button-style"
             role="button"
+            aria-label="button to generate recipe list"
             onClick={regenerateList}
           >
             Generate List
           </button>
-          <div className="container">
+          <div
+            className="container"
+            aria-label="button to generate recipe list"
+          >
             {resultBoxes.map((ID) => (
               <ResultBox
                 id={ID}

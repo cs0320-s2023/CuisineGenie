@@ -1,16 +1,10 @@
 package edu.brown.cs32.student.main.server.CuisineGenie;
-//
-//import edu.brown.cs32.student.main.server.CuisineGenie.Responses.Area;
-//import edu.brown.cs32.student.main.server.CuisineGenie.Responses.RecipeID;
 import edu.brown.cs32.student.main.server.CuisineGenie.Responses.MealProperties;
 import edu.brown.cs32.student.main.server.CuisineGenie.Responses.Meals;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Random;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Map;
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -24,7 +18,14 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 
+/**
+ * The Generator class handles the recipe generation of our application.
+ */
 public class Generator implements Route {
+
+    /**
+     * Private objects so that they are not modified by other classes
+     */
 
     private List<Meals> mealIDs; // this will be given to us by the frontend
     private RecipeUtils recipeUtils;
@@ -37,8 +38,16 @@ public class Generator implements Route {
         this.areasList = new ArrayList<String>();
     }
 
+    /**
+     * Our handle method is called when a new Generator object is created and takes in user inputted
+     * recipe ideas to regenerate new recommended recipes.
+     * @param request user query paramters as recipe id strings
+     * @param response repsonse based on user inputs
+     * @return -- success or failure response object
+     * @throws Exception  thrown when the API cannot be called
+     */
     @Override
-    public Object handle(Request request, Response response) throws Exception {
+    public Object handle(Request request, Response response) throws IOException {
         try {
             if (request.queryParams().size() != 5) {
                 return serialize(
@@ -69,13 +78,10 @@ public class Generator implements Route {
                     "Please input valid Recipe IDs from the MealDB API."));
             }
 
-            System.out.println("converted string to id");
             this.mealIDs = new ArrayList<Meals>(List.of(id1, id2, id3, id4, id5));
             System.out.println("mealIDs from query params:" + this.mealIDs);
             this.getAllCategories();
-            System.out.println("got all categories");
             this.getAllAreas();
-            System.out.println("got all areas");
             List<String> generatedList = this.filterByArea(); // Display a copy of the list
             System.out.println("this is the list " + generatedList);
             return serialize(viewSuccessResponse(generatedList));
@@ -87,6 +93,11 @@ public class Generator implements Route {
 
     }
 
+    /**
+     * Loops through the List of Meal IDs and adds the categories to a new list
+     * Public for testing purposes
+     */
+
     public void getAllCategories() {
         for (Meals meal : this.mealIDs) {
             String category = this.recipeUtils.getCategory(meal);
@@ -94,6 +105,10 @@ public class Generator implements Route {
         }
     }
 
+    /**
+     * Loops through the Meal IDs list and gets each area and adds it to a new list
+     * Public for testing purposes
+     */
 
     public void getAllAreas() {
         for (Meals meal : mealIDs) {
@@ -105,6 +120,11 @@ public class Generator implements Route {
         }
     }
 
+    /**
+     * Loops through each category in the category lists and maps  it to a frequency.
+     * Public for testing purposes
+     * @return the string with the highest frequency
+     */
 
     public String mostCommonCategory() {
         if (this.categoriesList == null || this.categoriesList.isEmpty()) {
@@ -132,24 +152,23 @@ public class Generator implements Route {
             return keys.get(random.nextInt(keys.size()));
         }
         System.out.println("most common string : " + mostCommonString);
-
         return mostCommonString;
-
-
     }
 
+    /**
+     * Populates a list of MealProperties by category by calling the API and searching by category.
+     * @return returns a list of meals filtered by category
+     * @throws IOException exception thrown when the API cannot be called
+     */
     public List<MealProperties> filterByCategory() throws IOException {
         try {
-            //String url = "https://themealdb.com/api/json/v1/1/filter.php?c=" + this.mostCommonCategory();
             List<MealProperties> filteredByCategory = new ArrayList<>();
-//        System.out.println("most common cat list: "+  this.mostCommonCategory());
             Meals mealsFromCategory = this.recipeUtils.callAPI(
                 "https://themealdb.com/api/json/v1/1/filter.php?c=", this.mostCommonCategory(),
                 Meals.class);
             for (MealProperties meal : mealsFromCategory.mealProperties())
                 filteredByCategory.add(meal);
             return filteredByCategory;
-
         } catch (IOException e) {
             System.err.println("Please provide a valid category to search by");
             return null;
@@ -157,12 +176,15 @@ public class Generator implements Route {
 
     }
 
+    /**
+     * Populates a list of areas by calling the API and searching by area.
+     * @return a list of areas in each MealProperties in the filterByCategory list.
+     * @throws IOException thrown when the API cannot be called
+     */
 
     public List<String> filterByArea() throws IOException {
         try {
-            System.out.println("in filter by area");
             List<String> generatedList = new ArrayList<>();
-            System.out.println("made generated list");
 
             List<MealProperties> filteredByCategory = this.filterByCategory();
             System.out.println("List of meals filtered by category: " + filteredByCategory);
@@ -170,10 +192,10 @@ public class Generator implements Route {
             List<Meals> withCategoryAndArea = new ArrayList<>();
             for (MealProperties meal : filteredByCategory) {
                 String id = meal.mealID();
-                // System.out.println((id));
+
                 Meals singleMeal = this.recipeUtils.callAPI(
                     "https://themealdb.com/api/json/v1/1/lookup.php?i=", id, Meals.class);
-//            System.out.println("the single meal: " + singleMeal)
+
                 MealProperties mealProps = this.recipeUtils.callAPI(
                     "https://themealdb.com/api/json/v1/1/lookup.php?i=", id, MealProperties.class);
                 singleMeal.mealProperties().add(mealProps);
@@ -209,7 +231,11 @@ public class Generator implements Route {
     }
 
 
-
+    /**
+     * Returns a Map containing a success response to be converted to JSON.
+     *
+     * @return a Map<String,Object> containing response fields
+     */
     private Map<String, Object> viewSuccessResponse(List<String> ids) {
         Map<String, Object> responses = new HashMap<>();
         responses.put("result", "success");
