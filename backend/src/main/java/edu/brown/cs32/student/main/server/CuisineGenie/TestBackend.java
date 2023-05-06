@@ -15,6 +15,7 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.Types;
 
+import org.jetbrains.annotations.TestOnly;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -137,5 +138,27 @@ public class TestBackend() {
     }
 
     // Failure Responses
+    @Test
+    public void WrongNumberParams() {
+        // 6
+        HttpURLConnection clientConnection = tryRequest("generaterecipe?1=52765&2=53050&3=52807&4=52771&5=52965&6=52871");
+        assertEquals(200, clientConnection.getResponseCode());
+
+        Moshi moshi = new Moshi.Builder().build();
+        JsonAdapter<Map<String, Object>> adapter = moshi.adapter(
+                Types.newParameterizedType(Map.class, String.class, Object.class));
+        Map response = adapter.fromJson(new Buffer().readFrom(clientConnection.getInputStream()));
+        assertEquals("[]", response.get("errorMessage").toString()); // fill in
+
+        // 4
+        HttpURLConnection clientConnection = tryRequest("generaterecipe?1=52765&2=53050&3=52807&4=52771");
+        assertEquals(200, clientConnection.getResponseCode());
+
+        Moshi moshi = new Moshi.Builder().build();
+        JsonAdapter<Map<String, Object>> adapter = moshi.adapter(
+                Types.newParameterizedType(Map.class, String.class, Object.class));
+        Map response = adapter.fromJson(new Buffer().readFrom(clientConnection.getInputStream()));
+        assertEquals("[]", response.get("errorMessage").toString()); // fill in
+    }
 }
 
