@@ -23,6 +23,10 @@ import com.squareup.moshi.Types;
  */
 public class Generator implements Route {
 
+    /**
+     * Private objects so that they are not modified by other classes
+     */
+
     private List<Meals> mealIDs; // this will be given to us by the frontend
     private RecipeUtils recipeUtils;
     private List<String> categoriesList;
