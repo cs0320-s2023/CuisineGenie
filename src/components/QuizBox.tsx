@@ -81,6 +81,7 @@ export interface eachMeal {
   strMealThumb: string;
   onClick: () => void;
   selected: boolean;
+
 }
 export function QuizBox(props: QuizBoxProps) {
     return (
@@ -118,9 +119,10 @@ export default function QuizBoxOne(props: eachMeal) {
       <div
       tabIndex={0}
       className={`quiz-box ${props.selected ? 'selected' : ''}`}
-      aria-label="contains quiz"
+      aria-label="a quiz box generator that generates 20 container with the image of a meal and the name of the meal"
       data-testid="quiz"
       role="quiz-box"
+      aria-describedby="a quiz box generator that generates 20 container with the image of a meal and the name of the meal"
       style={{ border: props.selected ? '3px solid blue' : '3px solid black' }}
       onClick={props.onClick} 
     
