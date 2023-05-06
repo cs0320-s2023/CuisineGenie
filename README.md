@@ -2,6 +2,7 @@
 
 ## Project Description
 https://github.com/cs0320-s2023/CuisineGenie.git 
+
 Katherine Mao (kmao5), Kayla Mukai (kmukai), Lucy Nguyen (lnguye48), Jennifer Tran (jtran43)
 
 
@@ -15,7 +16,7 @@ We worked on majority of the project together, and it took us 30 hours.
 Our project has both front-end and back-end development. Our project relied heavily on the MealDB API for the recipes shown to users. In our frontend, we have users choose their top 5 dishes, then that data is sent to our backend. We designed our backend as an intermediate for our application and the API. Once the backend receives the data, it calls the API so we can convert the API results into Meals and MealProperties objects. We chose to use records to help us convert API results into objects that we can extract data from. 
 
 
-###Errors or Bugs
+### Errors or Bugs
 
 We were unable to link the quiz results page to our generate list button without compromising the functionality of the results page. 
 
