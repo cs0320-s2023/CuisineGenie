@@ -18,7 +18,7 @@ import java.util.List;
 public class RecipeUtils {
 
     // gets top 3 ingredients of a recipe
-    public String getCategory(Meals meals) throws IOException {
+    public String getCategory(Meals meals) {
         //this.getRecipeEndpointURL(meals.mealProperties().get(0).mealID());
         String category = meals.mealProperties().get(0).category();
         return category;
@@ -37,7 +37,7 @@ public class RecipeUtils {
 
     }
 
-    public String getArea(Meals meals) throws IOException {
+    public String getArea(Meals meals) {
        // String endpoint = this.getRecipeEndpointURL(meals.mealProperties().get(0).mealID());
 
         String area = meals.mealProperties().get(0).area();
