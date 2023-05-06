@@ -4,25 +4,29 @@ import ResultList from "../components/ResultList";
 import Navbar from "./navbar";
 import "./pages.css";
 
-interface Results {}
-
 export default function Results() {
   const getRecipe = (args: String[]) => {
-    fetch(
-      `http://localhost:61747/generaterecipes?1=${args[0]}&2=${args[1]}&3=${args[2]}&4=${args[3]}&5=${args[4]}`
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        if (data["result"] === "success") {
-          console.log(data["ids"]);
-          setResultBoxes(data["ids"]);
-          console.log(resultBoxes);
-        } else {
-          return data["errorMessage"];
-        }
-      });
+    if (args.length == 5) {
+      fetch(
+        `http://localhost:61747/generaterecipes?1=${args[0]}&2=${args[1]}&3=${args[2]}&4=${args[3]}&5=${args[4]}`
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          if (data["result"] === "success") {
+            console.log(data["ids"]);
+            setResultBoxes(data["ids"]);
+            console.log(resultBoxes);
+          } else {
+            return data["errorMessage"];
+          }
+        });
+    } else {
+      setErrorMessage(
+        "Incorrect number of recipes selected in quiz! Please retake quiz and come back."
+      );
+    }
   };
 
   function regenerateList() {
@@ -36,6 +40,7 @@ export default function Results() {
   }, []);
 
   const [resultBoxes, setResultBoxes] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [likeList, setLikeList] = useState([]);
   const [vidList, setVidList] = useState([]);
@@ -61,7 +66,7 @@ export default function Results() {
         <div className="header-results">
           <h4 id="purple">Completed the quiz?</h4>
           <h5 id="purple">
-            Click the button below to generate a list of recommedations!
+            Click the button below to generate a list of recommendations!
           </h5>
           <button
             className="list-button-style"
@@ -71,6 +76,7 @@ export default function Results() {
           >
             Generate List
           </button>
+          <p>{errorMessage}</p>
           <div
             className="container"
             aria-label="button to generate recipe list"
