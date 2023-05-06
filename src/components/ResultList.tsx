@@ -25,7 +25,7 @@ export default function ResultList(props: ResultListProps) {
       className="sidebar"
       aria-label="contains result"
       data-testid="result"
-      role="result-box"
+      role="result-list"
     >
       {/* TODO: Add a div for each command in the history */}
       {/* Hint: You can use the map function to iterate over an array */}
