@@ -17,8 +17,9 @@ function Header() {
   return (
     <div>
       <h1
-        aria-label="REPL Header"
-        aria-description="Welcome to REPL. Click tab to navigate to search bar, and enter commands."
+        aria-label="Cuisine Genie Application"
+        aria-roledescription="Application header"
+        aria-describedby="Welcome to Cuisine Genie. Cuisine Genie is an application where users are able to generate recipes they will like based on their selection of meals in the quiz page. They will be able to see their generated recipes in the results page"
       >
         REPL
       </h1>

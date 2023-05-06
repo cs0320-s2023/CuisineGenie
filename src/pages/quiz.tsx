@@ -474,7 +474,7 @@ export default function MealQuiz() {
 
   const handleGenerateListClick = () => {
     const mealIDS = selectedMeals.map((meal: Meal) => meal.idMeal);
-    localStorage.setItem("strings", JSON.stringify(mealIDS));
+    localStorage.setItem("strings", JSON.stringify(mealIDS)); // inspired by chat gpt lul 
   };
   console.log(
     "selectedMealIds:",
