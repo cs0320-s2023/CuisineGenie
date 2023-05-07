@@ -31,9 +31,7 @@ beforeEach(() => {
   // need this for ts to recognize scrollIntoView as func
   window.HTMLElement.prototype.scrollIntoView = function() {};
   render(
-    <React.StrictMode>
     <App />
-  </React.StrictMode>
   )
 
   quiz = screen.getByTestId("quiz-container")
@@ -166,17 +164,19 @@ test ("selecting 5 random meal and getting ids ", async () => {
   fireEvent.click(quizbox[10]);
   fireEvent.click(quizbox[7]);
   fireEvent.click(quizbox[19]);
+  fireEvent.click(quizbox[18]);
 
   expect(quizbox[15].getAttribute("alt")).toBe("Montreal Smoked Meat");
   expect(quizbox[16].getAttribute("alt")).toBe("Honey Yogurt Cheesecake");
   expect(quizbox[10].getAttribute("alt")).toBe("Fruit & Cream Cheese Pastries");
   expect(quizbox[7].getAttribute("alt")).toBe("Clam chowder");
   expect(quizbox[19].getAttribute("alt")).toBe("Chicken Enchilada Casserole");
+  expect(quizbox[18].getAttribute("alt")).toBe("Portuguese barbecued pork");
 
   fireEvent.click(generateQuizButton);
   const storedMealIds = JSON.parse(localStorage.getItem('strings') || '[]'); 
   expect(storedMealIds).toContain('52927', '53007', '52957', '52840', '52765');
-
+  expect(storedMealIds).not.toBe('52927', '53007', '52957', '52840', '52765', '53044');
 
 });
 
