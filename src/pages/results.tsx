@@ -4,6 +4,8 @@ import ResultList from "../components/ResultList";
 import Navbar from "./navbar";
 import "./pages.css";
 
+export const TEXT_results_accessible_label = "contains results"
+
 export default function Results() {
   const getRecipe = (args: String[]) => {
     if (args.length == 5) {
@@ -59,7 +61,7 @@ export default function Results() {
   });
 
   return (
-    <div style={{ margin: "0", padding: "0" }} aria-label="contains results">
+    <div style={{ margin: "0", padding: "0" }} aria-label={TEXT_results_accessible_label}>
       <Navbar />
       <div className="grid">
         <ResultList list={likeList} vidList={vidList} />

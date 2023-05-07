@@ -149,7 +149,6 @@ export const TEXT_bottom_button_accessible_role = "quiz header bottom button"
  */
 
 
-
 export default function MealQuiz() {
   const [selectedMeals, setSelectedMeals] = useState<Meal[]>([]);
 
@@ -168,6 +167,8 @@ export default function MealQuiz() {
       // if the maximum number of selected meals has been reached, show an error message to the user
       console.error("You can only select up to 5 meals. Select exactly 5 for the food generator to generate recipes tailored for you!");
     }
+
+
   };
   console.log("selectedMeals:", selectedMeals);
 
@@ -180,21 +181,29 @@ export default function MealQuiz() {
     selectedMeals.map((meal: Meal) => meal.idMeal)
   );
 
-  function handleKeyPress(event) {
-    if (event.key === "B") {
-      handleGenerateListClick();
+  const handleKeyPress = (e: KeyboardEvent): void => {
+    if ( e.ctrlKey && e.key == "Enter") {
+      console.log("Enter key with Ctrl pressed");
+      handleGenerateListClick
     }
-  }
-  
+  };
+
   useEffect(() => {
-    document.addEventListener("keypress down", handleKeyPress);
+    const listener = (e: KeyboardEvent) => handleKeyPress(e);
+    window.addEventListener("keydown", listener);
+    console.log("Event listener added");
+  
     return () => {
-      document.removeEventListener("keypress down", handleKeyPress);
+      window.removeEventListener("keydown", listener);
+      console.log("Event listener removed");
     };
-  });
+  }, []);
+
 
   return (
-    <div>
+    <div
+    data-testid="quiz-container"
+    >
         <Navbar/>
       <div
         className="quiz-body container-fluid no-gutters"
@@ -265,6 +274,14 @@ export default function MealQuiz() {
                 selected={selectedMeals.find(
                   (m: Meal) => m.idMeal === meal.idMeal
                 )}
+                
+                  // } else if (e.key == "ArrowUp") {
+                  //   scroll("up");
+                  // } else if (e.key == "ArrowDown") {
+                  //   scroll("down");
+                  // }
+                  
+                
               />
             ))}
           </div>
@@ -275,6 +292,9 @@ export default function MealQuiz() {
         <button
           onClick={handleGenerateListClick}
           className="quiz-button-end mt-5 mb-5"
+          aria-label = {TEXT_bottombutton_accessible_label}
+          aria-describedby= {TEXT_bottombutton_accessible_label}
+          aria-role = {TEXT_bottom_button_accessible_role}
         >
           Generate List
         </button>

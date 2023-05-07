@@ -10,7 +10,6 @@ export default function Navbar() {
   return (
     <nav 
     aria-describedby={TEXT_navbar_accessible_aria}
-    aria-roledescription= {TEXT_navbar_accessible_role}
     aria-role = {TEXT_navbar_accessible_role}
     aria-label = {TEXT_navbar_accessible_label}
     className=" navbar navbar-expand-lg navbar-light bg-light">

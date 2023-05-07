@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { REPLFunction } from "../apiCaller/REPLFunction";
 import "./components.css";
 import "/src/pages/quiz.css"
 
@@ -32,7 +31,7 @@ export default function QuizBoxOne(props: eachMeal) {
       <div
       tabIndex={0}
       className={`quiz-box ${props.selected ? 'selected' : ''}`}
-      data-testid="quiz"
+      //data-testid="meal-container"
      
       role= {TEXT_quizbox_accessible_role}
       style={{ border: props.selected ? '3px solid blue' : '3px solid black' }}
