@@ -147,8 +147,6 @@ test("test selecting 5 meals ", async () => {
     // expect(storedMealIds).toContain("['52887', '52947', '52912', '52814', '52944']");
     // expect(storedMealIds).toHaveLength(5)
 
- 
-
   }
 });
 
