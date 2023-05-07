@@ -393,6 +393,7 @@
   }
 }
 
+
 .quiz-button-end{
   display: block;
   margin: 0 auto;
@@ -423,8 +424,9 @@
   margin: 20px;
   padding: 24px;
   font-family: "Montserrat", sans-serif;
-  
 }
+
+
 
  /* .quiz-box {
   background-color: lavender;

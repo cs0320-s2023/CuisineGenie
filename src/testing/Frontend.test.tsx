@@ -62,15 +62,15 @@ test("test that quiz elements render properly ", async () => {
   expect(screen.getByText(/Three-cheese souffles/i)).toBeInTheDocument();
   expect(screen.getByText(/Escovitch Fish/i)).toBeInTheDocument();
   expect(screen.getByText(/Vegan Lasagna/i)).toBeInTheDocument();
-  expect(screen.getByText(/Rigatoni with fennel sausage sauce/i)).toBeInTheDocument();
+  expect(screen.getByText(/Rigatoni with sausage sauce/i)).toBeInTheDocument();
   expect(screen.getByText(/Clam chowder/i)).toBeInTheDocument();
   expect(screen.getByText(/Vietnamese Grilled Pork/i)).toBeInTheDocument();
   expect(screen.getByText(/Dal fry/i)).toBeInTheDocument();
-  expect(screen.getByText(/Fruit and Cream Cheese Breakfast Pastries/i)).toBeInTheDocument();
+  expect(screen.getByText(/Fruit & Cream Cheese Pastries/i)).toBeInTheDocument();
   expect(screen.getByText(/Chicken Karaage/i)).toBeInTheDocument();
   expect(screen.getByText(/Home-made Mandazi/i)).toBeInTheDocument();
   expect(screen.getByText(/Vegan Chocolate Cake/i)).toBeInTheDocument();
-  expect(screen.getByText(/Roast fennel and aubergine paella/i)).toBeInTheDocument();
+  expect(screen.getByText(/Fennel and aubergine paella/i)).toBeInTheDocument();
   expect(screen.getByText(/Montreal Smoked Meat/i)).toBeInTheDocument();
   expect(screen.getByText(/Honey Yogurt Cheesecake/i)).toBeInTheDocument();
   expect(screen.getByText(/Laksa King Prawn Noodles/i)).toBeInTheDocument();
@@ -169,7 +169,7 @@ test ("selecting 5 random meal and getting ids ", async () => {
 
   expect(quizbox[15].getAttribute("alt")).toBe("Montreal Smoked Meat");
   expect(quizbox[16].getAttribute("alt")).toBe("Honey Yogurt Cheesecake");
-  expect(quizbox[10].getAttribute("alt")).toBe("Fruit and Cream Cheese Breakfast Pastries");
+  expect(quizbox[10].getAttribute("alt")).toBe("Fruit & Cream Cheese Pastries");
   expect(quizbox[7].getAttribute("alt")).toBe("Clam chowder");
   expect(quizbox[19].getAttribute("alt")).toBe("Chicken Enchilada Casserole");
 

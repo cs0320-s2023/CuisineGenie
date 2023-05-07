@@ -53,7 +53,7 @@ const meals: Meal[] = [
   },
   {
     idMeal: "52783",
-    strMeal: "Rigatoni with fennel sausage sauce",
+    strMeal: "Rigatoni with sausage sauce",
     strMealThumb:
       "https://www.themealdb.com/images/media/meals/qtqvys1468573168.jpg",
   },
@@ -77,7 +77,7 @@ const meals: Meal[] = [
   },
   {
     idMeal: "52957",
-    strMeal: "Fruit and Cream Cheese Breakfast Pastries",
+    strMeal: "Fruit & Cream Cheese Pastries",
     strMealThumb: "https://www.themealdb.com/images/media/meals/1543774956.jpg",
   },
   {
@@ -100,7 +100,7 @@ const meals: Meal[] = [
   },
   {
     idMeal: "52942",
-    strMeal: "Roast fennel and aubergine paella",
+    strMeal: "Fennel and aubergine paella",
     strMealThumb: "https://www.themealdb.com/images/media/meals/1520081754.jpg",
   },
   {
@@ -184,7 +184,7 @@ export default function MealQuiz() {
   const handleKeyPress = (e: KeyboardEvent): void => {
     if ( e.ctrlKey && e.key == "Enter") {
       console.log("Enter key with Ctrl pressed");
-      handleGenerateListClick
+      handleGenerateListClick();
     }
   };
 
@@ -203,6 +203,7 @@ export default function MealQuiz() {
   return (
     <div
     data-testid="quiz-container"
+    style = {{backgroundColor : "white !important" }}
     >
         <Navbar/>
       <div
@@ -226,7 +227,9 @@ export default function MealQuiz() {
             <button className="qheader-button"
             aria-label = {TEXT_topbutton_accessible_label}
             aria-describedby= {TEXT_topbutton_accessible_label}
-            aria-role = {TEXT_topbutton_role}>
+            aria-role = {TEXT_topbutton_role}
+            style={{ boxShadow: '0 8px 12px rgba(0, 0, 0, 0.2)'
+             }}>
               <Link
                 activeClass="active"
                 to="qheader-buttonid"
@@ -288,16 +291,19 @@ export default function MealQuiz() {
         </div>
       </section>
 
-      <div className="quiz-button-end-container" id="qheader-buttonid">
+      <div className="quiz-button-end-container " id="qheader-buttonid">
         <button
+          style={{ boxShadow: '6px 8px 12px rgba(0, 0, 0, 0.2)' }}
           onClick={handleGenerateListClick}
-          className="quiz-button-end mt-5 mb-5"
+          className="quiz-button-end mt-5 "
           aria-label = {TEXT_bottombutton_accessible_label}
           aria-describedby= {TEXT_bottombutton_accessible_label}
           aria-role = {TEXT_bottom_button_accessible_role}
         >
           Generate List
         </button>
+        <br></br>
+        <br></br>
       </div>
     </div>
   );

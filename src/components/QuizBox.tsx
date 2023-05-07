@@ -34,7 +34,7 @@ export default function QuizBoxOne(props: eachMeal) {
       //data-testid="meal-container"
      
       role= {TEXT_quizbox_accessible_role}
-      style={{ border: props.selected ? '3px solid blue' : '3px solid black' }}
+      style={{ border: props.selected ? '3px solid lime' : '3px solid #8E8CFF' }}
       onClick={props.onClick} 
     >
 
