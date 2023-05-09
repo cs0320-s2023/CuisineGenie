@@ -40,3 +40,4 @@ Open the backend folder in IntelliJ to run the backend server. Run the server by
 ### Collaboration with classmates
 
 We drew inspiration for converting API Results into objects from sprint-3-abenjell-hmasamur. Thank you to CS32 class code, TAs, and students for all their help on this project!
+- Also, for this part( localStorage.setItem("strings", JSON.stringify(mealIDS));), we used the interent since we couldn't figure it out how to send the ids to the results page as the ids were stored in a variable and we weren't able to export local variables. 

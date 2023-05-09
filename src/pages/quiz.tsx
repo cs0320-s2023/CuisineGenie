@@ -181,7 +181,7 @@ export default function MealQuiz() {
     selectedMeals.map((meal: Meal) => meal.idMeal)
   );
 
-  const handleKeyPress = (e: KeyboardEvent): void => {
+  const handleKeyPress = (e): void => {
     if ( e.ctrlKey && e.key == "Enter") {
       console.log("Enter key with Ctrl pressed");
       handleGenerateListClick();
