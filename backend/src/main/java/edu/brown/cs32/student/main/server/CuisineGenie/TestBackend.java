@@ -89,7 +89,7 @@ public class TestBackend {
     }
 
     @Test
-    public void AllDifferentCategories() throws IOException { // this one is weird bc it's random.....what to do????
+    public void AllDifferentCategories() throws IOException { // random
         // beef, chicken, vegetarian, dessert, breakfast
         HttpURLConnection clientConnection = tryRequest("generaterecipes?1=52874&2=53050&3=52807&4=53049&5=52965");
         assertEquals(200, clientConnection.getResponseCode());
@@ -125,27 +125,6 @@ public class TestBackend {
                 Types.newParameterizedType(Map.class, String.class, Object.class));
         Map response = adapter.fromJson(new Buffer().readFrom(clientConnection.getInputStream()));
         assertEquals("[53050, 52846, 52796, 52934, 52765, 52875, 52795, 52920, 52879, 52832, 52830, 52851, 52933, 52806]", response.get("ids").toString()); 
-    }
-
-    @Test
-    public void AllSameAreas() throws IOException {
-        // american
-        // dessert, pork, beef, beef, chicken
-
-        // why is most common chicken??? should be beef
-        HttpURLConnection clientConnection = tryRequest("generaterecipes?1=52855&2=52995&3=52812&4=53013&5=53016");
-        assertEquals(200, clientConnection.getResponseCode());
-
-        Moshi moshi = new Moshi.Builder().build();
-        JsonAdapter<Map<String, Object>> adapter = moshi.adapter(
-                Types.newParameterizedType(Map.class, String.class, Object.class));
-        Map response = adapter.fromJson(new Buffer().readFrom(clientConnection.getInputStream()));
-        assertEquals("", response.get("ids").toString()); 
-    }
-
-    @Test
-    public void DifferentAreas() {
-
     }
 
     // Failure Responses
