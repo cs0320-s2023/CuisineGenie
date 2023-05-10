@@ -66,18 +66,24 @@ public class RecipeUtils {
      * @return List of the objects
      * @throws IOException -- exception thrown when the API cannot be called
      */
-    public <T> T callAPI(String url, String endpoint, Type classType) throws IOException {
+    public <T> T callAPI(String url, String endpoint, Type classType)
+        throws IOException, InterruptedException {
         String apiCall = this.getRecipeEndpointURL(endpoint);
         String urlAPI = url + apiCall;
         URL urlEndpoint = new URL(urlAPI);
         HttpURLConnection clientConnection = (HttpURLConnection) urlEndpoint.openConnection();
+        clientConnection.setRequestMethod("GET");
+        clientConnection.setRequestProperty("Content-Type", "application/json");
 
-        clientConnection.connect();
+        // Add a delay of one second between each request
+        Thread.sleep(400);
+
+        //clientConnection.connect();
         int status = clientConnection.getResponseCode();
 
         switch (status) {
-            case 404 -> throw new IOException("The entered coordinates were not valid. Please try again.");
-            case 500 -> throw new IOException("An unexpected error occurred while connecting to NWS server.");
+            case 404 -> throw new IOException("The entered MealIDs were not valid. Please try again.");
+            case 500 -> throw new IOException("An unexpected error occurred while connecting to MealDB server.");
         }
 
         InputStreamReader resultReader = new InputStreamReader(clientConnection.getInputStream());

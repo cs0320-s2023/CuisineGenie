@@ -34,7 +34,7 @@ public class Generator implements Route {
 
     public Generator() {
         this.recipeUtils = new RecipeUtils();
-        this.categoriesList = new ArrayList<String>();
+
         this.areasList = new ArrayList<String>();
     }
 
@@ -86,7 +86,7 @@ public class Generator implements Route {
             System.out.println("this is the list " + generatedList);
             return serialize(viewSuccessResponse(generatedList));
 
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             return serialize(viewFailureResponse("error_datasource",
                 "Please enter a valid Recipe ID to be converted."));
         }
@@ -99,6 +99,7 @@ public class Generator implements Route {
      */
 
     public void getAllCategories() {
+        this.categoriesList = new ArrayList<String>();
         for (Meals meal : this.mealIDs) {
             String category = this.recipeUtils.getCategory(meal);
             this.categoriesList.add(category);
@@ -132,6 +133,8 @@ public class Generator implements Route {
         }
 
         Map<String, Integer> frequencyMap = new HashMap<>();
+        //frequencyMap.entrySet().clear();  don't need this anymore
+        System.out.println("cat list: " + this.categoriesList);
         for (String str : this.categoriesList) {
             frequencyMap.put(str, frequencyMap.getOrDefault(str, 0) + 1);
         }
@@ -140,6 +143,7 @@ public class Generator implements Route {
         int highestFrequency = 0;
 
         for (Map.Entry<String, Integer> entry : frequencyMap.entrySet()) {
+            System.out.println(entry);
             if (entry.getValue() > highestFrequency) {
                 mostCommonString = entry.getKey();
                 highestFrequency = entry.getValue();
@@ -147,6 +151,7 @@ public class Generator implements Route {
         }
 
         if (highestFrequency == 1) {
+            System.out.println("Random Category");
             Random random = new Random();
             List<String> keys = new ArrayList<>(frequencyMap.keySet());
             return keys.get(random.nextInt(keys.size()));
@@ -161,15 +166,17 @@ public class Generator implements Route {
      * @throws IOException exception thrown when the API cannot be called
      */
     public List<MealProperties> filterByCategory() throws IOException {
+        List<MealProperties> filteredByCategory = new ArrayList<>();
         try {
-            List<MealProperties> filteredByCategory = new ArrayList<>();
+
             Meals mealsFromCategory = this.recipeUtils.callAPI(
                 "https://themealdb.com/api/json/v1/1/filter.php?c=", this.mostCommonCategory(),
                 Meals.class);
             for (MealProperties meal : mealsFromCategory.mealProperties())
                 filteredByCategory.add(meal);
             return filteredByCategory;
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
+
             System.err.println("Please provide a valid category to search by");
             return null;
         }
@@ -183,8 +190,9 @@ public class Generator implements Route {
      */
 
     public List<String> filterByArea() throws IOException {
+        List<String> generatedList = new ArrayList<>();
         try {
-            List<String> generatedList = new ArrayList<>();
+
 
             List<MealProperties> filteredByCategory = this.filterByCategory();
             System.out.println("List of meals filtered by category: " + filteredByCategory);
@@ -223,9 +231,12 @@ public class Generator implements Route {
 
             return generatedList;
 
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
+            System.err.println(e.getMessage());
+            System.err.println(e.getCause());
+            System.err.println(e.getLocalizedMessage());
             System.err.println("Please provide a valid Recipe ID to lookup");
-            return null;
+            return generatedList;
 
         }
     }
